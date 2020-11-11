@@ -10,6 +10,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.sheets.v4.Sheets;
 import com.google.api.services.sheets.v4.SheetsScopes;
+import com.google.api.services.sheets.v4.model.Spreadsheet;
 import com.google.api.services.sheets.v4.model.ValueRange;
 
 
@@ -75,13 +76,29 @@ public class GoogleSheetServiceBuilder {
             .execute();
 
         List<List<Object>> values = response.getValues();
+        List<Object> headings = values.get(0);
         
         if (values == null || values.isEmpty()) {
             System.out.println("No data found");
         } else {
             values.stream()
                     .forEach(row -> System.out.printf("Name: %s, tonality: %s, chords: %s\n", row.get(0), row.get(2), row.get(6)));
+                    //.forEach(row -> System.out.printf("Name: %s, tonality: %s, chords: %s\n", row.get(headings.indexOf("Name")), row.get(2), row.get(6)));
+                    //.forEach(row -> System.out.printf("%s : %s : %s\n", row.get(headings.indexOf("Name")), 
+                            //row.get(headings.indexOf("Tonality")), 
+                            //row.get(headings.indexOf("recorded voice/piano"))));
         }
+
+
+        //String range = "Sheet1!A2:R52"; // TODO rename to other than Sheet1
+//        sheetsService = getSheetsService();
+//        Sheets.Spreadsheets.Get request = sheetsService.spreadsheets().get(TUNES_SPREADSHEET_ID);
+//        request.setIncludeGridData(true);
+//        Spreadsheet spreadsheet = request.execute();
+//        System.out.println("here " + 
+//        spreadsheet.getSheets().get(0)
+//                .getData().get(0).getRowData()
+//                .get(2).getValues().get(6).getHyperlink());
         
     }
     
