@@ -31,7 +31,7 @@ import static spark.Spark.post;
 import static spark.Spark.get;
 
 
-public class GoogleSheetServiceBuilder {
+public class ListTunes {
     
     // Some changes
 
@@ -40,7 +40,7 @@ public class GoogleSheetServiceBuilder {
     private static String TUNES_SPREADSHEET_ID = "1iLZ7ViUJZn1yhYIR88_ohcXedqw4WCgZaKNOeiR85Ak";  // not null?
 
     private static Credential authorize() throws IOException, GeneralSecurityException {
-        InputStream in = GoogleSheetServiceBuilder.class.getClassLoader().getResourceAsStream("credentials.json");
+        InputStream in = ListTunes.class.getClassLoader().getResourceAsStream("credentials.json");
         GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(
             JacksonFactory.getDefaultInstance(), new InputStreamReader(in)
         );
@@ -76,48 +76,34 @@ public class GoogleSheetServiceBuilder {
     
     public static void main(String[] args) throws IOException, GeneralSecurityException {
         
+        String googlePrefix = "http://docs.google.com/uc?export=open&id=";
+        String audioTagPrefix = "<audio controls><source src=\"";
+        
         get("/tunes", (req, res) -> {
         
         sheetsService = getSheetsService();
-        String range = "Sheet1!A2:R52"; // TODO rename to other than Sheet1
-        
-        ValueRange response = sheetsService.spreadsheets().values() // Use for Strings
-            .get(TUNES_SPREADSHEET_ID, range)
-            .execute();
-        
-        List<List<Object>> values = response.getValues();
-        List<Object> headings = values.get(0);
+        List<Object> headings = getHeadings();
         List<String> htmlLines = null;
-        
-        // Need to specify lines 3 - 53
-        // Maybe use dropWhile?
         
         
         Sheets.Spreadsheets.Get request = sheetsService.spreadsheets().get(TUNES_SPREADSHEET_ID);   // Get actual spreadsheet no range included
         request.setIncludeGridData(true);
         Spreadsheet spreadsheet = request.execute();            // Use for links
         Sheet currSheet = spreadsheet.getSheets().get(0);       // Get the first spreadsheet
-        GridData theData = currSheet.getData().get(0);          // setStartXXX seems to have no effect   .setStartColumn(3).setStartRow(3);          // First page ?
-        
-//        System.out.println(theData.getStartColumn());
-//        
-//        System.out.println(
-//        
-//                theData.getRowData().get(5).getValues()
-//                .get(7).getHyperlink());
+        GridData theData = currSheet.getData().get(0);          // setStartXXX seems to have no effect    First page ?
         
         String htmlOutput = theData.getRowData().stream()
-                .skip(2)
+                .skip(2)    // Skip the two headings rows
                 //.filter(r -> r.getValues().get(headings.indexOf("Tonality")).getFormattedValue().equalsIgnoreCase("Dorian"))
                 //.filter(f -> f.getValues().get(2) == null)
                 .limit(3)
                 .filter(o -> o.getValues().get(2).getEffectiveValue() != null)
                 .map(o -> (
-                        //o.getValues().get(headings.indexOf("Name")).getFormattedValue() 
-                        //+ " ... " 
-                        //+ 
-                                o.getValues().get(7).getHyperlink().split("\\?")[0]))
-                .collect(joining("\"/></audio>\n<audio controls><source src=\""));
+                        o.getValues().get(headings.indexOf("Name")).getFormattedValue() 
+                        + " ... " 
+                        + 
+                        audioTagPrefix + googlePrefix + o.getValues().get(6).getHyperlink().split("file/d/")[1].split("/view")[0]))
+                .collect(joining("\"/></audio><br>\n"));
                 //.filter
         
 //        System.out.println(theData.getRowData()     //List<RowData>
@@ -183,15 +169,29 @@ public class GoogleSheetServiceBuilder {
 
 //            String htmlOutput = htmlLines.stream().collect(joining("</br>\n<br>"));
 //            
-            System.out.println ("<audio controls><source src=\"" + htmlOutput + "\"/></audio>");
-            return ("<audio controls><source src=\"" + htmlOutput + "\"/></audio>");
+            System.out.println ("" + htmlOutput + "\"/></audio>");
             
             
             
+            
+            return ("" + htmlOutput + "\"/></audio>");
         });
         
+    }
+    
+    
+    // Temporary - maybe should just be a settings class?
+    static List<Object> getHeadings() throws IOException, GeneralSecurityException{
         
+        String range = "Sheet1!A2:R52"; // TODO rename to other than Sheet1
         
+        ValueRange response = sheetsService.spreadsheets().values() // Use for Strings
+            .get(TUNES_SPREADSHEET_ID, range)
+            .execute();
+        
+        List<List<Object>> values = response.getValues();
+        return values.get(0);
+         
     }
     
     
