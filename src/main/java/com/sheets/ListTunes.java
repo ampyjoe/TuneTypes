@@ -11,6 +11,7 @@ import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.sheets.v4.Sheets;
 import com.google.api.services.sheets.v4.SheetsScopes;
 import com.google.api.services.sheets.v4.model.GridData;
+import com.google.api.services.sheets.v4.model.RowData;
 import com.google.api.services.sheets.v4.model.Sheet;
 import com.google.api.services.sheets.v4.model.Spreadsheet;
 import com.google.api.services.sheets.v4.model.ValueRange;
@@ -20,15 +21,22 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import static java.lang.System.out;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.function.BiPredicate;
+import java.util.function.Predicate;
 import static java.util.stream.Collectors.mapping;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.joining;
 import static spark.Spark.post;
 import static spark.Spark.get;
+
+
+// Since not that big, maybe first build a Grid of all tunes in a suitable way to use for all the stages?
+
 
 
 public class ListTunes {
@@ -78,13 +86,44 @@ public class ListTunes {
         
         String googlePrefix = "http://docs.google.com/uc?export=open&id=";
         String audioTagPrefix = "<audio controls><source src=\"";
-        
-        get("/tunes", (req, res) -> {
-        
         sheetsService = getSheetsService();
         List<Object> headings = getHeadings();
         List<String> htmlLines = null;
         
+           
+        //get("/tunes", (req, res) -> {
+
+//            String name = req.queryParams("name");
+//            String phoneNumFrom = req.queryParams("From");
+
+
+//        String name = "hokey";
+//        String tonic = "D";
+//        String tonality = "Dorian";
+//        String melodic =
+//        String harmonic =
+//        String harmonization =
+
+        Map<String,String> theParams //= req.params(); 
+        = Map.of("Tonic", "G", "Tonality", "major");
+        
+        //Predicate theFilter = ( (RowData f) -> f.toString().equals("hello") ); // To start w a true Predicate. f will be the Object passed in
+        
+        Predicate<RowData> theFilter = o -> true;   // necessary to initialize
+        
+        // Can't really do it 'cos of lambda limitation on local variable in lambda expr
+        //theParams.forEach( (k, v) -> theFilter = theFilter.and((RowData o) -> o.getValues().get(headings.indexOf(k)).getFormattedValue().equalsIgnoreCase(v)));
+//        
+//        
+        Iterator<Map.Entry<String, String>> itr = theParams.entrySet().iterator(); 
+
+        
+        while(itr.hasNext()) 
+        { 
+             Map.Entry<String, String> entry = itr.next(); 
+             theFilter = theFilter.and((RowData o) -> o.getValues().get(headings.indexOf(entry.getKey())).getFormattedValue().equalsIgnoreCase(entry.getValue()));
+        } 
+
         
         Sheets.Spreadsheets.Get request = sheetsService.spreadsheets().get(TUNES_SPREADSHEET_ID);   // Get actual spreadsheet no range included
         request.setIncludeGridData(true);
@@ -96,88 +135,49 @@ public class ListTunes {
                 .skip(2)    // Skip the two headings rows
                 //.filter(r -> r.getValues().get(headings.indexOf("Tonality")).getFormattedValue().equalsIgnoreCase("Dorian"))
                 //.filter(f -> f.getValues().get(2) == null)
-                .limit(3)
-                .filter(o -> o.getValues().get(2).getEffectiveValue() != null)
+
+                .filter(o -> o.getValues().get(6).getHyperlink() != null)   // there must be a hyperlink
+                //.filter((RowData o) -> o.getValues().get(headings.indexOf("Tonality")).getFormattedValue().equalsIgnoreCase("Dorian"))
+                .filter(theFilter)
+                
                 .map(o -> (
                         o.getValues().get(headings.indexOf("Name")).getFormattedValue() 
                         + " ... " 
                         + 
                         audioTagPrefix + googlePrefix + o.getValues().get(6).getHyperlink().split("file/d/")[1].split("/view")[0]))
+                
+                //.filter(o -> o.getValues().get(6).getHyperlink() != null)
+                
                 .collect(joining("\"/></audio><br>\n"));
                 //.filter
         
-//        System.out.println(theData.getRowData()     //List<RowData>
-//                                    .get(2)         //RowData
-//                                    .getValues()    //List<CellData>
-//                                    .get(2)         //CellData
-//                                    .getFormattedValue()
-//        );       
-
-//        List<List<Object>> values = response.getValues();
-//        List<Object> headings = values.get(0);
-//        List<String> htmlLines = null;
-//        
-//        if (values == null || values.isEmpty()) {
-//            System.out.println("No data found");
-//        } else {
-//            htmlLines = values.stream()
-//                    .filter(r -> r.get(headings.indexOf("Tonality")).toString().equalsIgnoreCase("Dorian"))    // Use recursion for multiple filters?
-//                    //.forEach(row -> System.out.printf("Name: %s, tonality: %s, chords: %s\n", row.get(0), row.get(2), row.get(6)));
-//                    //.forEach(row -> System.out.printf("Name: %s, tonality: %s, chords: %s\n", row.get(headings.indexOf("Name")), row.get(2), row.get(6)));
-//                    //.forEach(row -> System.out.printf("%s : %s : %s\n", row.get(headings.indexOf("Name")), 
-//                            //row.get(headings.indexOf("Tonality")), 
-//                            //row.get(headings.indexOf("recorded voice/piano"))));
-//                    .collect(mapping(r -> r.get(headings.indexOf("Name")).toString()
-//                            + r.get(headings.indexOf("recorded voice/piano")).toString()
-//                            , toList()));   // Need a joining here
-//        }
-        
-                    //.collect(mapping(r -> r.stream().collect(joining()),toList()));   // Need a joining here?
-                    //.collect(mapping(r -> r.get(1).toString() + ":" + r.get(5).toString(),toList()));   // Need a joining here?
-                    //.collect(mapping(r -> r.get(1).toString(),toList()));   // Need a joining here?
-
-
-        //String range = "Sheet1!A2:R52"; // TODO rename to other than Sheet1
-//        sheetsService = getSheetsService();
-//        Sheets.Spreadsheets.Get request = sheetsService.spreadsheets().get(TUNES_SPREADSHEET_ID);   // Get actual spreadsheet no range included
-//        request.setIncludeGridData(true);
-//        Spreadsheet spreadsheet = request.execute();
-        
-        //List<List<Object>> values = spreadsheet.;
-        
-        
-        
-        
-//        System.out.println("here " + 
-//        spreadsheet.getSheets().get(0)                      // Get the first spreadsheet
-//                .getData().get(0)                           // First page ?
-//                .getRowData().get(5).getValues()            // Row 5
-//                .get(7).getHyperlink());                    // Column 7 and hyperlink, not String value
-        
-        
-        // Prob best to use the range version of code for searching, then dataGrid version for getting hyperlinks.
-        
-        
-        
-            
-//            StringBuilder htmlOutput = new StringBuilder();
-//            htmlOutput.append("<br>")
-//                    .append(htmlLines.get(2))
-//                    .append("</br>");
-//            System.out.println(htmlLines);
-//            return htmlOutput.toString();
-
-//            String htmlOutput = htmlLines.stream().collect(joining("</br>\n<br>"));
 //            
             System.out.println ("" + htmlOutput + "\"/></audio>");
             
             
             
             
-            return ("" + htmlOutput + "\"/></audio>");
-        });
+//            return ("" + htmlOutput + "\"/></audio>");
+//        });
         
+        
+//        get("/filter", (req, res) -> {
+//        
+//        
+//        
+//            return "";
+//        
+//        });
+               
     }
+    
+
+    
+    
+
+    
+    
+    
     
     
     // Temporary - maybe should just be a settings class?
@@ -193,6 +193,8 @@ public class ListTunes {
         return values.get(0);
          
     }
+    
+    
     
     
 
