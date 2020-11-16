@@ -23,16 +23,24 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 import static java.util.stream.Collectors.mapping;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.joining;
+import spark.ModelAndView;
+import spark.Request;
+import spark.Response;
+import spark.Route;
+import spark.Spark;
 import static spark.Spark.post;
 import static spark.Spark.get;
+import static spark.Spark.staticFiles;
 
 
 // Since not that big, maybe first build a Grid of all tunes in a suitable way to use for all the stages?
@@ -84,6 +92,17 @@ public class ListTunes {
     
     public static void main(String[] args) throws IOException, GeneralSecurityException {
         
+        staticFiles.location("/public");
+        
+        
+//        Spark.externalStaticFileLocation("/home/resources");
+//get("/home", (req, res) -> {
+//    return new ModelAndView("", "tunefilter.jsp");
+//});
+        
+        
+        
+        
         String googlePrefix = "http://docs.google.com/uc?export=open&id=";
         String audioTagPrefix = "<audio controls><source src=\"";
         sheetsService = getSheetsService();
@@ -91,7 +110,9 @@ public class ListTunes {
         List<String> htmlLines = null;
         
            
-        //get("/tunes", (req, res) -> {
+        get("/tunes", (req, res) -> {
+            
+            //req.session().
 
 //            String name = req.queryParams("name");
 //            String phoneNumFrom = req.queryParams("From");
@@ -104,8 +125,16 @@ public class ListTunes {
 //        String harmonic =
 //        String harmonization =
 
-        Map<String,String> theParams //= req.params(); 
-        = Map.of("Tonic", "G", "Tonality", "major");
+        Set<String> queryParams = req.queryParams();
+        
+        //if (req.queryParams("Name") == null || req.queryParams("Name").equals("")) queryParams.remove("Name");
+        
+            //System.out.println("queryParam Name: " + req.queryParams("Name"));
+        
+
+        //Map<String,String> theParams = req.queryParams(); 
+            System.out.println("The params:" + queryParams);
+        //= Map.of("Tonic", "G", "Tonality", "major");
         
         //Predicate theFilter = ( (RowData f) -> f.toString().equals("hello") ); // To start w a true Predicate. f will be the Object passed in
         
@@ -115,13 +144,16 @@ public class ListTunes {
         //theParams.forEach( (k, v) -> theFilter = theFilter.and((RowData o) -> o.getValues().get(headings.indexOf(k)).getFormattedValue().equalsIgnoreCase(v)));
 //        
 //        
-        Iterator<Map.Entry<String, String>> itr = theParams.entrySet().iterator(); 
+        //Iterator<Map.Entry<String, String>> itr = theParams.entrySet().iterator(); 
+        Iterator<String> itr = queryParams.iterator(); 
 
         
         while(itr.hasNext()) 
         { 
-             Map.Entry<String, String> entry = itr.next(); 
-             theFilter = theFilter.and((RowData o) -> o.getValues().get(headings.indexOf(entry.getKey())).getFormattedValue().equalsIgnoreCase(entry.getValue()));
+             String entry = itr.next();
+             //System.out.println(entry.getKey() + ":" + entry.getValue());
+             if (!req.queryParams(entry).equals(""))
+             theFilter = theFilter.and((RowData o) -> o.getValues().get(headings.indexOf(entry)).getFormattedValue().equalsIgnoreCase(req.queryParams(entry)));
         } 
 
         
@@ -152,22 +184,34 @@ public class ListTunes {
                 //.filter
         
 //            
-            System.out.println ("" + htmlOutput + "\"/></audio>");
+            //System.out.println ("" + htmlOutput + "\"/></audio>");
             
             
             
             
-//            return ("" + htmlOutput + "\"/></audio>");
-//        });
+            return (
+                    " <form action=\"filtertunes.html\" method=\"get\">\n" +
+"            <input type=\"submit\" value=\"Reload query page\" />\n" +
+"        </form> "
+                     + htmlOutput + "\"/></audio> <BR>");
+        });
         
         
-//        get("/filter", (req, res) -> {
+//        get("/tunefilter.jsp", (req, res) -> {
 //        
-//        
-//        
-//            return "";
+////            System.out.println("hello: " + req.servletPath());
+////        
+////            res.redirect("http://localhost:4567/public/tunefilter.jsp");
+//            return new ModelAndView("", "tunefilter.jsp");
 //        
 //        });
+
+//get(new Route("/") {
+//  //@Override
+//  public Object handle(Request request, Response response) {
+//    return "";//jsp("index");
+//  }
+//});
                
     }
     
