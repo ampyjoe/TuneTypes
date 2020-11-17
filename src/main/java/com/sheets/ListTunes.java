@@ -112,48 +112,34 @@ public class ListTunes {
            
         get("/tunes", (req, res) -> {
             
-            //req.session().
-
-//            String name = req.queryParams("name");
-//            String phoneNumFrom = req.queryParams("From");
-
-
-//        String name = "hokey";
-//        String tonic = "D";
-//        String tonality = "Dorian";
-//        String melodic =
-//        String harmonic =
-//        String harmonization =
 
         Set<String> queryParams = req.queryParams();
         
-        //if (req.queryParams("Name") == null || req.queryParams("Name").equals("")) queryParams.remove("Name");
-        
-            //System.out.println("queryParam Name: " + req.queryParams("Name"));
-        
+        System.out.println("The params:" + queryParams);
 
-        //Map<String,String> theParams = req.queryParams(); 
-            System.out.println("The params:" + queryParams);
-        //= Map.of("Tonic", "G", "Tonality", "major");
-        
-        //Predicate theFilter = ( (RowData f) -> f.toString().equals("hello") ); // To start w a true Predicate. f will be the Object passed in
-        
-        Predicate<RowData> theFilter = o -> true;   // necessary to initialize
-        
-        // Can't really do it 'cos of lambda limitation on local variable in lambda expr
-        //theParams.forEach( (k, v) -> theFilter = theFilter.and((RowData o) -> o.getValues().get(headings.indexOf(k)).getFormattedValue().equalsIgnoreCase(v)));
-//        
-//        
-        //Iterator<Map.Entry<String, String>> itr = theParams.entrySet().iterator(); 
-        Iterator<String> itr = queryParams.iterator(); 
+        Iterator<String> itr = queryParams.iterator();
+        String[] values = null;
 
+        // Build the filter
+        Predicate<RowData> andFilter = o -> true;   // necessary to initialize outer attribute predicates (they'll all be AND'd)
+        
         
         while(itr.hasNext()) 
         { 
-             String entry = itr.next();
-             //System.out.println(entry.getKey() + ":" + entry.getValue());
-             if (!req.queryParams(entry).equals(""))
-             theFilter = theFilter.and((RowData o) -> o.getValues().get(headings.indexOf(entry)).getFormattedValue().equalsIgnoreCase(req.queryParams(entry)));
+             String key = itr.next();
+             values = req.queryParamsValues(key);
+
+             Predicate<RowData> orFilter = o -> false;   // necessary to initialize before each inner loop - each attribute value OR'd
+             if (values.length > 0 && !values[0].equals("")) { // there are some values and the first isn't "" (so doesn't use Name if empty)
+                 for (String value : values) {
+                     System.out.println("key: " + key + " value: " + value);
+                    orFilter = orFilter.or((RowData o) -> 
+                            o.getValues().get(headings.indexOf(key)).getFormattedValue().equalsIgnoreCase(value));                  
+                     
+                 }
+                 andFilter = andFilter.and(orFilter);
+             }    
+
         } 
 
         
@@ -165,29 +151,19 @@ public class ListTunes {
         
         String htmlOutput = theData.getRowData().stream()
                 .skip(2)    // Skip the two headings rows
-                //.filter(r -> r.getValues().get(headings.indexOf("Tonality")).getFormattedValue().equalsIgnoreCase("Dorian"))
-                //.filter(f -> f.getValues().get(2) == null)
 
-                .filter(o -> o.getValues().get(6).getHyperlink() != null)   // there must be a hyperlink
-                //.filter((RowData o) -> o.getValues().get(headings.indexOf("Tonality")).getFormattedValue().equalsIgnoreCase("Dorian"))
-                .filter(theFilter)
+                .filter(o -> o.getValues().get(6).getHyperlink() != null)   // there must be a hyperlink for recorded voice/piano
+
+                .filter(andFilter)
                 
                 .map(o -> (
                         o.getValues().get(headings.indexOf("Name")).getFormattedValue() 
                         + " ... " 
                         + 
                         audioTagPrefix + googlePrefix + o.getValues().get(6).getHyperlink().split("file/d/")[1].split("/view")[0]))
-                
-                //.filter(o -> o.getValues().get(6).getHyperlink() != null)
+
                 
                 .collect(joining("\"/></audio><br>\n"));
-                //.filter
-        
-//            
-            //System.out.println ("" + htmlOutput + "\"/></audio>");
-            
-            
-            
             
             return (
                     " <form action=\"filtertunes.html\" method=\"get\">\n" +
@@ -206,12 +182,6 @@ public class ListTunes {
 //        
 //        });
 
-//get(new Route("/") {
-//  //@Override
-//  public Object handle(Request request, Response response) {
-//    return "";//jsp("index");
-//  }
-//});
                
     }
     
