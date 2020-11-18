@@ -102,9 +102,10 @@ public class ListTunes {
         
         
         
-        
-        String googlePrefix = "http://docs.google.com/uc?export=open&id=";
         String audioTagPrefix = "<audio controls><source src=\"";
+        String googlePrefix = "http://docs.google.com/uc?export=open&id=";
+        String closeTag = "\"/></audio><br>\n";
+
         sheetsService = getSheetsService();
         List<Object> headings = getHeadings();
         List<String> htmlLines = null;
@@ -113,7 +114,7 @@ public class ListTunes {
         get("/tunes", (req, res) -> {
             
 
-        Set<String> queryParams = req.queryParams();
+        Set<String> queryParams = req.queryParams();    // TODO Possibly try to remove any params with no values?
         
         System.out.println("The params:" + queryParams);
 
@@ -122,7 +123,6 @@ public class ListTunes {
 
         // Build the filter
         Predicate<RowData> andFilter = o -> true;   // necessary to initialize outer attribute predicates (they'll all be AND'd)
-        
         
         while(itr.hasNext()) 
         { 
@@ -160,16 +160,17 @@ public class ListTunes {
                         o.getValues().get(headings.indexOf("Name")).getFormattedValue() 
                         + " ... " 
                         + 
-                        audioTagPrefix + googlePrefix + o.getValues().get(6).getHyperlink().split("file/d/")[1].split("/view")[0]))
-
-                
-                .collect(joining("\"/></audio><br>\n"));
+                        audioTagPrefix + googlePrefix + o.getValues().get(6).getHyperlink().split("file/d/")[1].split("/view")[0]) + closeTag)
+                //.collect(joining("\"/></audio><br>\n"));
+                .collect(joining());
+        
+        if (htmlOutput.equals("")) htmlOutput = "No songs";
             
             return (
                     " <form action=\"filtertunes.html\" method=\"get\">\n" +
 "            <input type=\"submit\" value=\"Reload query page\" />\n" +
 "        </form> "
-                     + htmlOutput + "\"/></audio> <BR>");
+                     + htmlOutput);
         });
         
         
