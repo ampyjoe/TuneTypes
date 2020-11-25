@@ -149,7 +149,7 @@ public class ListTunes {
         Sheet currSheet = spreadsheet.getSheets().get(0);       // Get the first spreadsheet
         GridData theData = currSheet.getData().get(0);          // setStartXXX seems to have no effect    First page ?
         
-        String htmlOutput = theData.getRowData().stream()
+        String htmlOutput = theData.getRowData().stream()   // A stream of RowData
                 .skip(2)    // Skip the two headings rows
 
                 .filter(o -> o.getValues().get(6).getHyperlink() != null)   // there must be a hyperlink for recorded voice/piano
@@ -169,7 +169,7 @@ public class ListTunes {
             return (
                     " <form action=\"filtertunes.html\" method=\"get\">\n" +
 "            <input type=\"submit\" value=\"Reload query page\" />\n" +
-"        </form> "
+"        </form> <br> \n"
                      + htmlOutput);
         });
         
