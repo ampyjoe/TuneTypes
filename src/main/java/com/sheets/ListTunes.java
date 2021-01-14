@@ -110,7 +110,9 @@ public class ListTunes {
         List<Object> headings = getHeadings();
         List<String> htmlLines = null;
         
-           
+
+        // Respond to request for a set of tunes
+
         get("/tunes", (req, res) -> {
             
 
@@ -120,47 +122,62 @@ public class ListTunes {
 
         Iterator<String> itr = queryParams.iterator();
         String[] values = null;
+        int pt = 0;
+
 
         // Build the filter
         Predicate<RowData> andFilter = o -> true;   // necessary to initialize outer attribute predicates (they'll all be AND'd)
-        
+
         while(itr.hasNext()) 
         { 
              String key = itr.next();
              values = req.queryParamsValues(key);
 
-             Predicate<RowData> orFilter = o -> false;   // necessary to initialize before each inner loop - each attribute value OR'd
-             if (values.length > 0 && !values[0].equals("")) { // there are some values and the first isn't "" (so doesn't use Name if empty)
+             Predicate<RowData> orFilter = o -> false;          // necessary to initialize before each inner loop - each attribute value OR'd
+             if (values.length > 0 && !values[0].equals("") && !key.equalsIgnoreCase("Performance Type")) {  // there are some values and the first isn't "" (so don't create predicate if nothing checked)
                  for (String value : values) {
                      System.out.println("key: " + key + " value: " + value);
-                    orFilter = orFilter.or((RowData o) -> 
-                            o.getValues().get(headings.indexOf(key)).getFormattedValue().equalsIgnoreCase(value));                  
-                     
+
+                     System.out.println("Other key: " + key + " value: " + value);
+                     orFilter = orFilter.or((RowData o) ->
+                             o.getValues().get(headings.indexOf(key)).getFormattedValue().equalsIgnoreCase(value));
+
                  }
                  andFilter = andFilter.and(orFilter);
-             }    
+
+             } else if (key.equalsIgnoreCase("Performance Type")) {   // Performance Type filter
+                 pt = Integer.parseInt(req.queryParams(key));
+             }
+            System.out.println("Perf type: " + pt);
 
         } 
 
-        
+        // Now get the results and output as HTML
+            // As with other parameters, no selections means ALL performances of a song selected
+            // TODO tidy up the filter lines
+
         Sheets.Spreadsheets.Get request = sheetsService.spreadsheets().get(TUNES_SPREADSHEET_ID);   // Get actual spreadsheet no range included
         request.setIncludeGridData(true);
         Spreadsheet spreadsheet = request.execute();            // Use for links
         Sheet currSheet = spreadsheet.getSheets().get(0);       // Get the first spreadsheet
         GridData theData = currSheet.getData().get(0);          // setStartXXX seems to have no effect    First page ?
-        
+        int finalPt = pt;
         String htmlOutput = theData.getRowData().stream()   // A stream of RowData
                 .skip(2)    // Skip the two headings rows
-
-                .filter(o -> o.getValues().get(6).getHyperlink() != null)   // there must be a hyperlink for recorded voice/piano
+                //.limit(40)
+                // there must be a hyperlink for recorded voice/piano. 6 is magic number for piano w vocal - TODO... there must be at least one performance
+                .filter(o -> o.getValues().get(6 + finalPt).getHyperlink() != null)
+                .filter(o -> o.getValues().get(6 + finalPt).getHyperlink().contains("view"))       // If it's linked to a folder there'll be no "view" in URL
+                .filter(o -> o.getValues().get(6 + finalPt).getHyperlink().contains("file/d/"))    // Ensures the split works later
+                //.filter(o -> o.getValues().get(6).getHyperlink() != null)
 
                 .filter(andFilter)
                 
                 .map(o -> (
                         o.getValues().get(headings.indexOf("Name")).getFormattedValue() 
-                        + " ... " 
-                        + 
-                        audioTagPrefix + googlePrefix + o.getValues().get(6).getHyperlink().split("file/d/")[1].split("/view")[0]) + closeTag)
+                        + " ... "
+                        //+ audioTagPrefix + googlePrefix + o.getValues().get(6 + finalPt).getHyperlink()) + closeTag)
+                        + audioTagPrefix + googlePrefix + o.getValues().get(6 + finalPt).getHyperlink().split("file/d/")[1].split("/view")[0]) + closeTag)
                 //.collect(joining("\"/></audio><br>\n"));
                 .collect(joining());
         
