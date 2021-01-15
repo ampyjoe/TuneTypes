@@ -152,7 +152,7 @@ public class ListTunes {
 
         } 
 
-        // Now get the results and output as HTML
+        // Now get the results and output as HTML links for the songs
             // As with other parameters, no selections means ALL performances of a song selected
             // TODO tidy up the filter lines
 
