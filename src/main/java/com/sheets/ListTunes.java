@@ -167,8 +167,8 @@ public class ListTunes {
                 //.limit(40)
                 // there must be a hyperlink for recorded voice/piano. 6 is magic number for piano w vocal - TODO... there must be at least one performance
                 .filter(o -> o.getValues().get(6 + finalPt).getHyperlink() != null)
-                .filter(o -> o.getValues().get(6 + finalPt).getHyperlink().contains("view"))       // If it's linked to a folder there'll be no "view" in URL
-                .filter(o -> o.getValues().get(6 + finalPt).getHyperlink().contains("file/d/"))    // Ensures the split works later
+                //.filter(o -> o.getValues().get(6 + finalPt).getHyperlink().contains("view"))       // If it's linked to a folder there'll be no "view" in URL
+                //.filter(o -> o.getValues().get(6 + finalPt).getHyperlink().contains("file/d/"))    // Ensures the split works later
                 //.filter(o -> o.getValues().get(6).getHyperlink() != null)
 
                 .filter(andFilter)
