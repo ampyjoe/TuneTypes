@@ -6,7 +6,7 @@
   </head>
   <body>
     <h2>Filter Tunes</h2>
-    <form action="/tunes" method="get">
+    <form id="params" action="tunes" method="POST">
       <fieldset>
        <legend>Selecting Tunes</legend>
        <p>
@@ -129,32 +129,146 @@
 
           <input type="submit" value="Submit search" />
           
-<!--               <form name="theForm">
-                    <input type="checkbox" id="total" name="total">total
-                    <br />
-                    <input type="checkbox" id="male" name="gender">male
-                    <input type="checkbox" id="female" name="gender">female
-                    <br />
-                    <input type="checkbox" id="18-24" name="age">18-24
-                    <input type="checkbox" id="24-34" name="age">25-34
-                    <input type="checkbox" id="35-44" name="age">35-44
-                    <input type="checkbox" id="45-54" name="age">45-54
-                    <input type="checkbox" id="55+" name="age">55+
-                    <br />
-                    <input type="checkbox" id="north" name="region">north
-                    <input type="checkbox" id="south" name="region">south
-                    <input type="checkbox" id="east" name="region">east
-                    <input type="checkbox" id="west" name="region">west
-                    <br />
-                                        
-                </form>          -->
-          
-          
-          
-          
 
         </p>       
       </fieldset>     
     </form>
+    
+    <form id="fake"  action="tunes" method="GET">
+        <input type="submit" value="Submit fake" />
+    </form>
+    
+    
+    <button onclick="submitPage()">Filter</button>
+    
+    <DIV id = "container">Some stuff here</DIV>     <!--To be used to list songs TODO add scrollwheels?-->
+    
   </body>
 </html>
+
+<script>
+
+    
+//window.addEventListener( "load", function () {
+//  function sendData() {
+//    const XHR = new XMLHttpRequest();
+//
+//    // Bind the FormData object and the form element
+//    const FD = new FormData( form );
+//
+//    // Define what happens on successful data submission
+//    XHR.addEventListener( "load", function(event) {
+//      //alert( event.target.responseText );
+//      //theDivElement = document.getElementsByTagName("DIV");   
+//      //theDivElement[0].innerHtml = event.target.responseText;
+//      document.getElementById("container").innerHTML = event.target.responseText; //xhr.response;
+//    } );
+//
+//    // Define what happens in case of error
+//    XHR.addEventListener( "error", function( event ) {
+//      alert( 'Oops! Something went wrong.' );
+//    } );
+//
+//    // Set up our request
+//    XHR.open( "POST", "tunes" );
+//    XHR.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+//
+//    // The data sent is what the user provided in the form
+//    XHR.send( FD );
+//  }
+//
+//  // Access the form element...
+//  const form = document.getElementById( "params" );
+//
+//  // ...and take over its submit event.
+//  form.addEventListener( "submit", function ( event ) {
+//    event.preventDefault();
+//
+//   sendData();
+//  } );
+//} );
+
+    
+    
+    
+    
+    
+    
+function submitPage() {
+    
+    debugger; 
+    
+    
+    // Important!! TODO check for the correct types of input rather than just dropping the last one
+    
+    theFormElement = document.getElementById('params');
+    
+    theInputs = theFormElement.querySelectorAll('INPUT');
+    var queryString = "";
+    
+    for (index = 0; index < theInputs.length -1; index++) { 
+        if (theInputs[index].checked) {
+            queryString += theInputs[index].name + "=" + theInputs[index].value + "&"; 
+        }
+    }
+    //queryString += theInputs[theInputs.length-1].name + "=" + theInputs[theInputs.length-1].value;
+    
+        console.log("The params: " + queryString);
+    //alert("The params: " + queryString);
+    
+    //theFormElement.submit();
+    
+    responseText = filterTunes(queryString);
+    
+//    alert(responseText);
+//    
+//    document.getElementById("container").innerHTML = responseText;
+    
+//    if (theAction === 'insertDB.jsp') {
+//        modifyDB("hmm", queryString);   // AJAX version
+//    }
+    //else theFormElement.submit();
+        
+        //TODO - decide functionality here. Prob if successful just reload the screen (but should check)
+        //location.reload();
+}
+
+
+function filterTunes(filterParams) {
+    
+    // Create the call to the ListTunes page
+    
+	var xhr = new XMLHttpRequest();
+	xhr.open('POST', "tunes");
+	xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        //xhr.setRequestHeader('Accept', 'application/json'); 
+        //xhr.setRequestHeader('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9');
+
+	// Track the state changes of the request.
+	xhr.onreadystatechange = function () {
+		var DONE = 4; // readyState 4 means the request is done.
+		var OK = 200; // status 200 is a successful return.
+                
+		if (xhr.readyState === DONE) {
+                    //alert(xhr.status);
+			if (xhr.status === OK) {
+                            // Important!! Element update must be here because call is asynchronous
+                           document.getElementById("container").innerHTML = xhr.responseText;
+			} else {
+                            if (xhr.status === 403) {
+                                alert ("Not permitted. Sorry.");
+                            }
+                            else //alert("Probs getting tunes: " + xhr.responseText);
+				alert("Couldn't get tunes: " + xhr.responseText); // An error occurred during the request.
+			}
+		}
+	};
+
+//alert("Couldn't get tunes: " + xhr.responseText);
+	xhr.send(filterParams);
+        //xhr.send({"id":"23423"});
+        //return xhr.responseText;
+
+    
+}
+</script>

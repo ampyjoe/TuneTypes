@@ -46,9 +46,11 @@ import static spark.Spark.staticFiles;
 
 // Since not that big, maybe first build a Grid of all tunes in a suitable way to use for all the stages?
 
+// Javalin version hack. TODO refactor!!!
 
 
-public class ListTunes {
+
+public class FilterTunes {
     
     // Some changes
 
@@ -57,7 +59,7 @@ public class ListTunes {
     private static String TUNES_SPREADSHEET_ID = "1iLZ7ViUJZn1yhYIR88_ohcXedqw4WCgZaKNOeiR85Ak";  // not null?
 
     private static Credential authorize() throws IOException, GeneralSecurityException {
-        InputStream in = ListTunes.class.getClassLoader().getResourceAsStream("credentials.json");
+        InputStream in = FilterTunes.class.getClassLoader().getResourceAsStream("credentials.json");
         GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(
             JacksonFactory.getDefaultInstance(), new InputStreamReader(in)
         );
@@ -91,6 +93,17 @@ public class ListTunes {
             .build();
     }
     
+  private static int getHerokuAssignedPort() {
+    String herokuPort = System.getenv("PORT");
+    if (herokuPort != null) {
+      return Integer.parseInt(herokuPort);
+    }
+    return 7000;
+  }
+    
+    
+    
+    
     public static void main(String[] args) throws IOException, GeneralSecurityException {
         
         staticFiles.location("/public");
@@ -111,21 +124,23 @@ public class ListTunes {
         List<Object> headings = getHeadings();
         List<String> htmlLines = null;
         
-
+//config.addStaticFiles("public")
         // Respond to request for a set of tunes
 
-        post("/tunes", (req, res) -> {
+        //post("/tunes", (req, res) -> {
         
-//        Javalin app = Javalin.create().start(7000);
-//        app.get("/", ctx -> 
+        Javalin app = Javalin.create(config -> config.addStaticFiles("public")).start(7000);
+        app.post("/tunes", ctx -> {
             
 
-        Set<String> queryParams = req.queryParams();    // TODO Possibly try to remove any params with no values?
+        Map<String, List<String>> queryParamMap = ctx.formParamMap();    // TODO Possibly try to remove any params with no values?
+        
+        Set<Map.Entry<String, List<String>>> queryParams = queryParamMap.entrySet();
         
         System.out.println("The params:" + queryParams);
 
-        Iterator<String> itr = queryParams.iterator();
-        String[] values = null;
+        Iterator<Map.Entry<String, List<String>>> itr = queryParams.iterator();
+        List<String> values = null;
         int pt = 0;
 
 
@@ -134,11 +149,11 @@ public class ListTunes {
 
         while(itr.hasNext()) 
         { 
-             String key = itr.next();
-             values = req.queryParamsValues(key);
+             String key = itr.next().getKey();
+              values = queryParamMap.get(key);
 
              Predicate<RowData> orFilter = o -> false;          // necessary to initialize before each inner loop - each attribute value OR'd
-             if (values.length > 0 && !values[0].equals("") && !key.equalsIgnoreCase("Performance Type")) {  // there are some values and the first isn't "" (so don't create predicate if nothing checked)
+             if (values.size() > 0 && !values.get(0).equals("") && !key.equalsIgnoreCase("Performance Type")) {  // there are some values and the first isn't "" (so don't create predicate if nothing checked)
                  for (String value : values) {
                      System.out.println("key: " + key + " value: " + value);
 
@@ -150,7 +165,7 @@ public class ListTunes {
                  andFilter = andFilter.and(orFilter);
 
              } else if (key.equalsIgnoreCase("Performance Type")) {   // Performance Type filter
-                 pt = Integer.parseInt(req.queryParams(key));
+                 pt = Integer.parseInt(ctx.formParams(key).get(0));  // If Perf type only 1 parameter
              }
             System.out.println("Perf type: " + pt);
 
@@ -187,7 +202,7 @@ public class ListTunes {
         
         if (htmlOutput.equals("")) htmlOutput = "No songs";
             
-            return (
+            ctx.result (
                     " <form action=\"filtertunes.html\" method=\"get\">\n" +
 "            <input type=\"submit\" value=\"Reload query page\" />\n" +
 "        </form> <br> \n"
