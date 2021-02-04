@@ -16,6 +16,7 @@ import com.google.api.services.sheets.v4.model.Sheet;
 import com.google.api.services.sheets.v4.model.Spreadsheet;
 import com.google.api.services.sheets.v4.model.ValueRange;
 import io.javalin.Javalin;
+import io.javalin.http.Context;
 
 
 import java.io.File;
@@ -59,7 +60,7 @@ public class FilterTunes {
     private static String TUNES_SPREADSHEET_ID = "1iLZ7ViUJZn1yhYIR88_ohcXedqw4WCgZaKNOeiR85Ak";  // not null?
 
     private static Credential authorize() throws IOException, GeneralSecurityException {
-        InputStream in = FilterTunes.class.getClassLoader().getResourceAsStream("credentials.json");
+        InputStream in = FileFilterTunes.class.getClassLoader().getResourceAsStream("credentials.json");
         GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(
             JacksonFactory.getDefaultInstance(), new InputStreamReader(in)
         );
@@ -122,55 +123,27 @@ public class FilterTunes {
 
         sheetsService = getSheetsService();
         List<Object> headings = getHeadings();
-        List<String> htmlLines = null;
+        //List<String> htmlLines = null;
         
 //config.addStaticFiles("public")
         // Respond to request for a set of tunes
 
         //post("/tunes", (req, res) -> {
         
+        
+        // Set up Javalin incl a dir for static files
         Javalin app = Javalin.create(config -> config.addStaticFiles("public")).start(7000);
+        
+        // Start listening for requests
         app.post("/tunes", ctx -> {
             
-
-        Map<String, List<String>> queryParamMap = ctx.formParamMap();    // TODO Possibly try to remove any params with no values?
+        // Get the Predicate to use with the data from sheets
         
-        Set<Map.Entry<String, List<String>>> queryParams = queryParamMap.entrySet();
+        Predicate<RowData> andFilter = getPredicate(ctx);
         
-        System.out.println("The params:" + queryParams);
-
-        Iterator<Map.Entry<String, List<String>>> itr = queryParams.iterator();
-        List<String> values = null;
-        int pt = 0;
-
-
-        // Build the filter
-        Predicate<RowData> andFilter = o -> true;   // necessary to initialize outer attribute predicates (they'll all be AND'd)
-
-        while(itr.hasNext()) 
-        { 
-             String key = itr.next().getKey();
-              values = queryParamMap.get(key);
-
-             Predicate<RowData> orFilter = o -> false;          // necessary to initialize before each inner loop - each attribute value OR'd
-             if (values.size() > 0 && !values.get(0).equals("") && !key.equalsIgnoreCase("Performance Type")) {  // there are some values and the first isn't "" (so don't create predicate if nothing checked)
-                 for (String value : values) {
-                     System.out.println("key: " + key + " value: " + value);
-
-                     System.out.println("Other key: " + key + " value: " + value);
-                     orFilter = orFilter.or((RowData o) ->
-                             o.getValues().get(headings.indexOf(key)).getFormattedValue().equalsIgnoreCase(value));
-
-                 }
-                 andFilter = andFilter.and(orFilter);
-
-             } else if (key.equalsIgnoreCase("Performance Type")) {   // Performance Type filter
-                 pt = Integer.parseInt(ctx.formParams(key).get(0));  // If Perf type only 1 parameter
-             }
-            System.out.println("Perf type: " + pt);
-
-        } 
-
+                
+        int finalPt = Integer.parseInt(ctx.formParam("Performance Type")); //ctx.formParam("Performance Type");
+        
         // Now get the results and output as HTML links for the songs
             // As with other parameters, no selections means ALL performances of a song selected
             // TODO tidy up the filter lines
@@ -180,7 +153,8 @@ public class FilterTunes {
         Spreadsheet spreadsheet = request.execute();            // Use for links
         Sheet currSheet = spreadsheet.getSheets().get(0);       // Get the first spreadsheet
         GridData theData = currSheet.getData().get(0);          // setStartXXX seems to have no effect    First page ?
-        int finalPt = pt;
+        
+
         String htmlOutput = theData.getRowData().stream()   // A stream of RowData
                 .skip(2)    // Skip the two headings rows
                 //.limit(40)
@@ -224,7 +198,52 @@ public class FilterTunes {
     
 
     
-    
+    static Predicate<RowData> getPredicate(Context ctx) throws IOException, GeneralSecurityException {
+        
+        List<Object> headings = getHeadings();
+        
+               // Build the Filter to use with the data from sheets
+        Map<String, List<String>> queryParamMap = ctx.formParamMap();    // TODO Possibly try to remove any params with no values?
+        
+        Set<Map.Entry<String, List<String>>> queryParams = queryParamMap.entrySet();
+        
+        System.out.println("The params:" + queryParams);
+
+        Iterator<Map.Entry<String, List<String>>> itr = queryParams.iterator();
+        List<String> values = null;
+        int pt = 0;
+
+
+        // Build the predicate filter
+        Predicate<RowData> andFilter = o -> true;   // necessary to initialize outer attribute predicates (they'll all be AND'd)
+
+        while(itr.hasNext()) 
+        { 
+             String key = itr.next().getKey();
+              values = queryParamMap.get(key);
+
+             Predicate<RowData> orFilter = o -> false;          // necessary to initialize before each inner loop - each attribute value OR'd
+             if (values.size() > 0 && !values.get(0).equals("") && !key.equalsIgnoreCase("Performance Type")) {  // there are some values and the first isn't "" (so don't create predicate if nothing checked)
+                 for (String value : values) {
+                     System.out.println("key: " + key + " value: " + value);
+
+                     System.out.println("Other key: " + key + " value: " + value);
+                     orFilter = orFilter.or((RowData o) ->
+                             o.getValues().get(headings.indexOf(key)).getFormattedValue().equalsIgnoreCase(value));
+
+                 }
+                 andFilter = andFilter.and(orFilter);
+
+            } 
+            System.out.println("Perf type: " + pt);
+
+        } 
+
+        
+        return andFilter;
+        
+        
+    }
 
     
     

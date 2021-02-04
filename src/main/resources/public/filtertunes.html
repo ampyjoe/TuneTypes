@@ -6,7 +6,7 @@
   </head>
   <body>
     <h2>Filter Tunes</h2>
-    <form id="params" action="tunes" method="POST">
+    <form id="params">
       <fieldset>
        <legend>Selecting Tunes</legend>
        <p>
@@ -127,21 +127,21 @@
            <br>
            <br><br>
 
-          <input type="submit" value="Submit search" />
+<!--          <input type="submit" value="Submit search" />-->
           
 
         </p>       
       </fieldset>     
     </form>
     
-    <form id="fake"  action="tunes" method="GET">
+<!--    <form id="fake"  action="tunes" method="GET">
         <input type="submit" value="Submit fake" />
-    </form>
+    </form>-->
     
     
     <button onclick="submitPage()">Filter</button>
     
-    <DIV id = "container">Some stuff here</DIV>     <!--To be used to list songs TODO add scrollwheels?-->
+    <DIV id = "container"></DIV>     <!--To be used to list songs TODO add scrollwheels?-->
     
   </body>
 </html>
@@ -206,7 +206,7 @@ function submitPage() {
     theInputs = theFormElement.querySelectorAll('INPUT');
     var queryString = "";
     
-    for (index = 0; index < theInputs.length -1; index++) { 
+    for (index = 0; index < theInputs.length; index++) { 
         if (theInputs[index].checked) {
             queryString += theInputs[index].name + "=" + theInputs[index].value + "&"; 
         }

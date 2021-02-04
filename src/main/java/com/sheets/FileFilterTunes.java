@@ -234,21 +234,13 @@ public class FileFilterTunes {
                  }
                  andFilter = andFilter.and(orFilter);
 
-             } else if (key.equalsIgnoreCase("Performance Type")) {   // Performance Type filter
-                 pt = Integer.parseInt(ctx.formParams(key).get(0));  // If Perf type only 1 parameter
-             }
+            } 
             System.out.println("Perf type: " + pt);
 
         } 
- 
-        
-        
-        
+
         
         return andFilter;
-        
-        
-        
         
         
     }
@@ -270,10 +262,6 @@ public class FileFilterTunes {
         List<List<Object>> values = response.getValues();
         return values.get(0);
          
-    }
-    
-    
-    
-    
+    } 
 
 }
