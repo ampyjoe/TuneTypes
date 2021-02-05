@@ -34,6 +34,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.function.BiPredicate;
 import java.util.function.Predicate;
@@ -136,7 +137,7 @@ public class FileFilterTunes {
 //                     .stream();
 //
 //             
-             PrintWriter pw = new PrintWriter("tunesdata.txt");
+             //PrintWriter pw = new PrintWriter("tunesdata.txt");
 //             
 //             Stream<String> summat =  Arrays.stream(textString.split("\n"));
 //             
@@ -144,9 +145,35 @@ public class FileFilterTunes {
 //             Stream.concat(comments, summat)
 //                    //.peek(l -> System.out.println("here: " + l))
 //                .forEach(l -> pw.println(l));
-                              pw.close();
+                              //pw.close();
         
-        List<List<String>> tuneDataList =        
+        //List<List<String>> tuneDataList =  //List
+        
+        List<List<String>> tuneDataList1;       // Error on 271 if this declared as null????
+                
+        String person = null;
+        try {
+            Path file = new File("tunesdata.txt").toPath();
+
+            Stream<String> lineDetail = Files.lines(file);
+            tuneDataList1  = 
+                    lineDetail
+                    .map(l -> List.of(l.split("\\^",-2)))
+                    .collect(toList());
+
+                    
+        } catch (NoSuchElementException e) {
+            //System.out.println("No such user " + e);
+            throw new NoSuchElementException("No such user found");
+        } catch (IOException ex) { 
+            //System.out.println("Problem opening user data file.\n" + ex);
+            throw new IOException("Problem opening user data file");
+        }
+        //return new User(person);           
+                
+                
+                
+        List<List<String>> tuneDataList =         
         theData.getRowData().stream()
             .skip(2)
             .filter(r -> r.getValues().get(0).getFormattedValue()!=null)    // Make sure the tune name has a name!
@@ -188,6 +215,10 @@ public class FileFilterTunes {
 
 
         List<Object> headings = getHeadings();
+        
+        
+        
+        
         //List<String> htmlLines = null;
         
 //config.addStaticFiles("public")
@@ -237,7 +268,7 @@ public class FileFilterTunes {
         
         
         
-        String htmlOut = tuneDataList.stream()
+        String htmlOut = tuneDataList1.stream()
                 .filter(t -> t.get(6 + finalPt) != null)                    // Check that a performance of appropriate type exists for this song
                 .filter(t -> t.get(6 + finalPt).startsWith("http"))         // And that it looks like a URL (check if valid URL??)
                 .filter(aFilter)
