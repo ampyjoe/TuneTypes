@@ -10,6 +10,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.sheets.v4.Sheets;
 import com.google.api.services.sheets.v4.SheetsScopes;
+import com.google.api.services.sheets.v4.model.CellData;
 import com.google.api.services.sheets.v4.model.GridData;
 import com.google.api.services.sheets.v4.model.RowData;
 import com.google.api.services.sheets.v4.model.Sheet;
@@ -23,7 +24,11 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.security.GeneralSecurityException;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -35,6 +40,8 @@ import java.util.function.Predicate;
 import static java.util.stream.Collectors.mapping;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
+import java.util.stream.Stream;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -114,20 +121,70 @@ public class FileFilterTunes {
         Sheet currSheet = spreadsheet.getSheets().get(0);       // Get the first spreadsheet
         GridData theData = currSheet.getData().get(0);          // setStartXXX seems to have no effect    First page ?
         
-        // Create a Stream where each tune is a List<String>
-        
-        //Stream<List<String>> = 
-        
-//        theData.getRowData().stream()
-//            .skip(2)
-//            .map(mapper)
-        
-        
-        
-        
+        // Some HTML code for creating URLs
         String audioTagPrefix = "<audio controls><source src=\"";
         String googlePrefix = "http://docs.google.com/uc?export=open&id=";
         String closeTag = "\"/></audio><br>\n";
+        // Create a Stream where each tune is a List<CellData>
+        
+        
+//                     // get the initial comments
+//        Path file = new File("tunesData.txt".toPath();
+//             Stream<String> comments = Files.lines(file)
+//                     .takeWhile(f -> f.startsWith("#"))
+//                     .collect(toList())
+//                     .stream();
+//
+//             
+             PrintWriter pw = new PrintWriter("tunesdata.txt");
+//             
+//             Stream<String> summat =  Arrays.stream(textString.split("\n"));
+//             
+//             // Combine Stream of comments and Stream of Jobs 
+//             Stream.concat(comments, summat)
+//                    //.peek(l -> System.out.println("here: " + l))
+//                .forEach(l -> pw.println(l));
+                              pw.close();
+        
+        List<List<String>> tuneDataList =        
+        theData.getRowData().stream()
+            .skip(2)
+            .filter(r -> r.getValues().get(0).getFormattedValue()!=null)    // Make sure the tune name has a name!
+            .map( (RowData r) -> {
+                return r.getValues().stream().limit(10)
+                        .map((CellData c) -> {
+                            if (c.getHyperlink() != null) {
+                                if (c.getHyperlink().contains("view") && c.getHyperlink().contains("file/d/"))
+                                    return googlePrefix + c.getHyperlink().split("file/d/")[1].split("/view")[0];
+                                else return "";
+                            }
+                            else return c.getFormattedValue();
+                        })
+                        .collect(toList());
+                        //.collect(joining(","));
+            })
+            .collect(toList());
+        
+        // Write to file
+//            streamOfLists
+//                .map (r -> r.stream().collect(joining(",")))
+//
+//                .forEach(l -> pw.println(l));
+//            pw.close();
+
+            
+            //streamOfLists.forEach(System.out::println);
+            //System.exit(0);
+        
+        
+
+
+
+        
+        
+        
+        
+
 
 
         List<Object> headings = getHeadings();
@@ -155,12 +212,6 @@ public class FileFilterTunes {
         // Now get the results and output as HTML links for the songs
             // As with other parameters, no selections means ALL performances of a song selected
             // TODO tidy up the filter lines
-
-//        Sheets.Spreadsheets.Get request = sheetsService.spreadsheets().get(TUNES_SPREADSHEET_ID);   // Get actual spreadsheet no range included
-//        request.setIncludeGridData(true);
-//        Spreadsheet spreadsheet = request.execute();            // Use for links
-//        Sheet currSheet = spreadsheet.getSheets().get(0);       // Get the first spreadsheet
-//        GridData theData = currSheet.getData().get(0);          // setStartXXX seems to have no effect    First page ?
         
 
         String htmlOutput = theData.getRowData().stream()   // A stream of RowData
@@ -170,9 +221,9 @@ public class FileFilterTunes {
                 .filter(o -> o.getValues().get(6 + finalPt).getHyperlink() != null)
                 .filter(o -> o.getValues().get(6 + finalPt).getHyperlink().contains("view"))       // If it's linked to a folder there'll be no "view" in URL
                 .filter(o -> o.getValues().get(6 + finalPt).getHyperlink().contains("file/d/"))    // Ensures the split works later
-                .filter(o -> o.getValues().get(6).getHyperlink() != null)
+                .filter(o -> o.getValues().get(6).getHyperlink() != null)   // Prob not nec here as included in above line automatically when finalPt = 0
 
-                .filter(andFilter)
+                .filter(andFilter)  // filter out tunes not wanted
                 
                 .map(o -> (
                         o.getValues().get(headings.indexOf("Name")).getFormattedValue() 
@@ -182,13 +233,25 @@ public class FileFilterTunes {
                 //.collect(joining("\"/></audio><br>\n"));
                 .collect(joining());
         
+        
+        
+        String htmlOut = tuneDataList.stream()
+                .filter(t -> t.get(6 + finalPt) != null)
+               .map(o -> (
+                        o.get(headings.indexOf("Name")) 
+                        + " ... "
+                        + audioTagPrefix + o.get(6 + finalPt) + closeTag))
+                .collect(joining());
+        
+            System.out.println("htmlOut>>>>> " + htmlOut);
+        
         if (htmlOutput.equals("")) htmlOutput = "No songs";
             
             ctx.result (
                     " <form action=\"filtertunes.html\" method=\"get\">\n" +
 "            <input type=\"submit\" value=\"Reload query page\" />\n" +
 "        </form> <br> \n"
-                     + htmlOutput);
+                     + htmlOut);
         });
         
         
