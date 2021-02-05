@@ -206,6 +206,8 @@ public class FileFilterTunes {
         
         Predicate<RowData> andFilter = getPredicate(ctx);
         
+        Predicate<List<String>> aFilter = getStringPredicate(ctx);
+        
                 
         int finalPt = Integer.parseInt(ctx.formParam("Performance Type")); //ctx.formParam("Performance Type");
         
@@ -236,7 +238,9 @@ public class FileFilterTunes {
         
         
         String htmlOut = tuneDataList.stream()
-                .filter(t -> t.get(6 + finalPt) != null)
+                .filter(t -> t.get(6 + finalPt) != null)                    // Check that a performance of appropriate type exists for this song
+                .filter(t -> t.get(6 + finalPt).startsWith("http"))         // And that it looks like a URL (check if valid URL??)
+                .filter(aFilter)
                .map(o -> (
                         o.get(headings.indexOf("Name")) 
                         + " ... "
@@ -267,7 +271,52 @@ public class FileFilterTunes {
                
     }
     
+    static Predicate<List<String>> getStringPredicate(Context ctx) throws IOException, GeneralSecurityException {
+        
+        List<Object> headings = getHeadings();
+        
+               // Build the Filter to use with the data from sheets
+        Map<String, List<String>> queryParamMap = ctx.formParamMap();    // TODO Possibly try to remove any params with no values?
+        
+        Set<Map.Entry<String, List<String>>> queryParams = queryParamMap.entrySet();
+        
+        System.out.println("The params:" + queryParams);
 
+        Iterator<Map.Entry<String, List<String>>> itr = queryParams.iterator();
+        List<String> values = null;
+        int pt = 0;
+
+
+        // Build the predicate filter
+        Predicate<List<String>> andFilter = o -> true;   // necessary to initialize outer attribute predicates (they'll all be AND'd)
+
+        while(itr.hasNext()) 
+        { 
+             String key = itr.next().getKey();
+              values = queryParamMap.get(key);
+
+             Predicate<List<String>> orFilter = o -> false;          // necessary to initialize before each inner loop - each attribute value OR'd
+             if (values.size() > 0 && !values.get(0).equals("") && !key.equalsIgnoreCase("Performance Type")) {  // there are some values and the first isn't "" (so don't create predicate if nothing checked)
+                 for (String value : values) {
+                     System.out.println("key: " + key + " value: " + value);
+
+                     System.out.println("Other key: " + key + " value: " + value);
+                     orFilter = orFilter.or((List<String> o) ->
+                             o.get(headings.indexOf(key)).equalsIgnoreCase(value));
+
+                 }
+                 andFilter = andFilter.and(orFilter);
+
+            } 
+            System.out.println("Perf type: " + pt);
+
+        } 
+
+        
+        return andFilter;
+        
+        
+    }
     
     static Predicate<RowData> getPredicate(Context ctx) throws IOException, GeneralSecurityException {
         
