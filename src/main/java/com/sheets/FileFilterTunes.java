@@ -60,47 +60,7 @@ import static spark.Spark.staticFiles;
 
 
 public class FileFilterTunes {
-    
-    // Some changes
-
-    private static final String APPLICATION_NAME = "Google sheets tunes";
-    private static Sheets sheetsService;
-    private static String TUNES_SPREADSHEET_ID = "1iLZ7ViUJZn1yhYIR88_ohcXedqw4WCgZaKNOeiR85Ak";  // not null?
-
-    private static Credential authorize() throws IOException, GeneralSecurityException {
-        InputStream in = FileFilterTunes.class.getClassLoader().getResourceAsStream("credentials.json");
-        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(
-            JacksonFactory.getDefaultInstance(), new InputStreamReader(in)
-        );
-
-        List<String> scopes = Collections.singletonList(SheetsScopes.SPREADSHEETS_READONLY);
-
-        GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
-            GoogleNetHttpTransport.newTrustedTransport(),
-            JacksonFactory.getDefaultInstance(),
-            clientSecrets,
-            scopes)
-            .setDataStoreFactory(new FileDataStoreFactory(new File("tokens")))
-            .setAccessType("offline")
-            .build();
-
-        Credential credential = new AuthorizationCodeInstalledApp(
-            flow, new LocalServerReceiver())
-            .authorize("user");
-
-        return credential;
-    }
-
-
-    public static Sheets getSheetsService() throws IOException, GeneralSecurityException {
-        Credential credential = authorize();
-        return new Sheets.Builder(
-            GoogleNetHttpTransport.newTrustedTransport(),
-            JacksonFactory.getDefaultInstance(),
-            credential)
-            .setApplicationName(APPLICATION_NAME)
-            .build();
-    }
+   
     
   private static int getHerokuAssignedPort() {
     String herokuPort = System.getenv("PORT");
@@ -115,48 +75,19 @@ public class FileFilterTunes {
     
     public static void main(String[] args) throws IOException, GeneralSecurityException {
         
-        sheetsService = getSheetsService();        
-        Sheets.Spreadsheets.Get request = sheetsService.spreadsheets().get(TUNES_SPREADSHEET_ID);   // Get actual spreadsheet no range included
-        request.setIncludeGridData(true);
-        Spreadsheet spreadsheet = request.execute();            // Use for links
-        Sheet currSheet = spreadsheet.getSheets().get(0);       // Get the first spreadsheet
-        GridData theData = currSheet.getData().get(0);          // setStartXXX seems to have no effect    First page ?
-        
         // Some HTML code for creating URLs
         String audioTagPrefix = "<audio controls><source src=\"";
         String googlePrefix = "http://docs.google.com/uc?export=open&id=";
         String closeTag = "\"/></audio><br>\n";
-        // Create a Stream where each tune is a List<CellData>
         
-        
-//                     // get the initial comments
-//        Path file = new File("tunesData.txt".toPath();
-//             Stream<String> comments = Files.lines(file)
-//                     .takeWhile(f -> f.startsWith("#"))
-//                     .collect(toList())
-//                     .stream();
-//
-//             
-             //PrintWriter pw = new PrintWriter("tunesdata.txt");
-//             
-//             Stream<String> summat =  Arrays.stream(textString.split("\n"));
-//             
-//             // Combine Stream of comments and Stream of Jobs 
-//             Stream.concat(comments, summat)
-//                    //.peek(l -> System.out.println("here: " + l))
-//                .forEach(l -> pw.println(l));
-                              //pw.close();
-        
-        //List<List<String>> tuneDataList =  //List
-        
-        List<List<String>> tuneDataList1;       // Error on 271 if this declared as null????
+        List<List<String>> tuneDataList;       // Error on 271 if this declared as null????
                 
         String person = null;
         try {
             Path file = new File("tunesdata.txt").toPath();
 
             Stream<String> lineDetail = Files.lines(file);
-            tuneDataList1  = 
+            tuneDataList  = 
                     lineDetail
                     .map(l -> List.of(l.split("\\^",-2)))
                     .collect(toList());
@@ -169,62 +100,13 @@ public class FileFilterTunes {
             //System.out.println("Problem opening user data file.\n" + ex);
             throw new IOException("Problem opening user data file");
         }
-        //return new User(person);           
-                
-                
-                
-        List<List<String>> tuneDataList =         
-        theData.getRowData().stream()
-            .skip(2)
-            .filter(r -> r.getValues().get(0).getFormattedValue()!=null)    // Make sure the tune name has a name!
-            .map( (RowData r) -> {
-                return r.getValues().stream().limit(10)
-                        .map((CellData c) -> {
-                            if (c.getHyperlink() != null) {
-                                if (c.getHyperlink().contains("view") && c.getHyperlink().contains("file/d/"))
-                                    return googlePrefix + c.getHyperlink().split("file/d/")[1].split("/view")[0];
-                                else return "";
-                            }
-                            else return c.getFormattedValue();
-                        })
-                        .collect(toList());
-                        //.collect(joining(","));
-            })
-            .collect(toList());
-        
-        // Write to file
-//            streamOfLists
-//                .map (r -> r.stream().collect(joining(",")))
-//
-//                .forEach(l -> pw.println(l));
-//            pw.close();
 
-            
-            //streamOfLists.forEach(System.out::println);
-            //System.exit(0);
+        List<String> headings = tuneDataList.get(0);
         
+        System.out.println("tuneDataList: " + headings);
         
-
-
-
+        System.out.println("Index for Melodic Range: " + headings.indexOf("Melodic Range"));
         
-        
-        
-        
-
-
-
-        List<Object> headings = getHeadings();
-        
-        
-        
-        
-        //List<String> htmlLines = null;
-        
-//config.addStaticFiles("public")
-        // Respond to request for a set of tunes
-
-        //post("/tunes", (req, res) -> {
         
         staticFiles.location("/public");
         // Set up Javalin incl a dir for static files
@@ -235,9 +117,7 @@ public class FileFilterTunes {
             
         // Get the Predicate to use with the data from sheets
         
-        Predicate<RowData> andFilter = getPredicate(ctx);
-        
-        Predicate<List<String>> aFilter = getStringPredicate(ctx);
+        Predicate<List<String>> aFilter = getStringPredicate(ctx, headings);
         
                 
         int finalPt = Integer.parseInt(ctx.formParam("Performance Type")); //ctx.formParam("Performance Type");
@@ -247,28 +127,9 @@ public class FileFilterTunes {
             // TODO tidy up the filter lines
         
 
-        String htmlOutput = theData.getRowData().stream()   // A stream of RowData
-                .skip(2)    // Skip the two headings rows
-                //.limit(40)
-                // there must be a hyperlink for recorded voice/piano. 6 is magic number for piano w vocal - TODO... there must be at least one performance
-                .filter(o -> o.getValues().get(6 + finalPt).getHyperlink() != null)
-                .filter(o -> o.getValues().get(6 + finalPt).getHyperlink().contains("view"))       // If it's linked to a folder there'll be no "view" in URL
-                .filter(o -> o.getValues().get(6 + finalPt).getHyperlink().contains("file/d/"))    // Ensures the split works later
-                .filter(o -> o.getValues().get(6).getHyperlink() != null)   // Prob not nec here as included in above line automatically when finalPt = 0
-
-                .filter(andFilter)  // filter out tunes not wanted
-                
-                .map(o -> (
-                        o.getValues().get(headings.indexOf("Name")).getFormattedValue() 
-                        + " ... "
-                        //+ audioTagPrefix + googlePrefix + o.getValues().get(6 + finalPt).getHyperlink()) + closeTag)
-                        + audioTagPrefix + googlePrefix + o.getValues().get(6 + finalPt).getHyperlink().split("file/d/")[1].split("/view")[0]) + closeTag)
-                //.collect(joining("\"/></audio><br>\n"));
-                .collect(joining());
         
-        
-        
-        String htmlOut = tuneDataList1.stream()
+        String htmlOutput = tuneDataList.stream()
+                .skip(1)                                                    // skip headings line
                 .filter(t -> t.get(6 + finalPt) != null)                    // Check that a performance of appropriate type exists for this song
                 .filter(t -> t.get(6 + finalPt).startsWith("http"))         // And that it looks like a URL (check if valid URL??)
                 .filter(aFilter)
@@ -278,7 +139,7 @@ public class FileFilterTunes {
                         + audioTagPrefix + o.get(6 + finalPt) + closeTag))
                 .collect(joining());
         
-            System.out.println("htmlOut>>>>> " + htmlOut);
+            System.out.println("htmlOutput>>>>> " + htmlOutput);
         
         if (htmlOutput.equals("")) htmlOutput = "No songs";
             
@@ -286,7 +147,7 @@ public class FileFilterTunes {
                     " <form action=\"filtertunes.html\" method=\"get\">\n" +
 "            <input type=\"submit\" value=\"Reload query page\" />\n" +
 "        </form> <br> \n"
-                     + htmlOut);
+                     + htmlOutput);
         });
         
         
@@ -302,9 +163,9 @@ public class FileFilterTunes {
                
     }
     
-    static Predicate<List<String>> getStringPredicate(Context ctx) throws IOException, GeneralSecurityException {
+    static Predicate<List<String>> getStringPredicate(Context ctx, List<String> headings) throws IOException, GeneralSecurityException {
         
-        List<Object> headings = getHeadings();
+        //List<Object> headings = getHeadings();
         
                // Build the Filter to use with the data from sheets
         Map<String, List<String>> queryParamMap = ctx.formParamMap();    // TODO Possibly try to remove any params with no values?
@@ -349,73 +210,13 @@ public class FileFilterTunes {
         
     }
     
-    static Predicate<RowData> getPredicate(Context ctx) throws IOException, GeneralSecurityException {
-        
-        List<Object> headings = getHeadings();
-        
-               // Build the Filter to use with the data from sheets
-        Map<String, List<String>> queryParamMap = ctx.formParamMap();    // TODO Possibly try to remove any params with no values?
-        
-        Set<Map.Entry<String, List<String>>> queryParams = queryParamMap.entrySet();
-        
-        System.out.println("The params:" + queryParams);
-
-        Iterator<Map.Entry<String, List<String>>> itr = queryParams.iterator();
-        List<String> values = null;
-        int pt = 0;
-
-
-        // Build the predicate filter
-        Predicate<RowData> andFilter = o -> true;   // necessary to initialize outer attribute predicates (they'll all be AND'd)
-
-        while(itr.hasNext()) 
-        { 
-             String key = itr.next().getKey();
-              values = queryParamMap.get(key);
-
-             Predicate<RowData> orFilter = o -> false;          // necessary to initialize before each inner loop - each attribute value OR'd
-             if (values.size() > 0 && !values.get(0).equals("") && !key.equalsIgnoreCase("Performance Type")) {  // there are some values and the first isn't "" (so don't create predicate if nothing checked)
-                 for (String value : values) {
-                     System.out.println("key: " + key + " value: " + value);
-
-                     System.out.println("Other key: " + key + " value: " + value);
-                     orFilter = orFilter.or((RowData o) ->
-                             o.getValues().get(headings.indexOf(key)).getFormattedValue().equalsIgnoreCase(value));
-
-                 }
-                 andFilter = andFilter.and(orFilter);
-
-            } 
-            System.out.println("Perf type: " + pt);
-
-        } 
-
-        
-        return andFilter;
-        
-        
-    }
-
-    
-    
-    
-    
     
     // Temporary - maybe should just be a settings class?
     static List<Object> getHeadings() throws IOException, GeneralSecurityException{
         
-        String range = "Sheet1!A2:R52"; // TODO rename to other than Sheet1
+
         
-        ValueRange response = sheetsService.spreadsheets().values() // Use for Strings
-            .get(TUNES_SPREADSHEET_ID, range)
-            .execute();
-        
-        List<List<Object>> values = response.getValues();
-        
-        values.get(0).stream()
-                .forEach(o -> System.out.println(o));
-        
-        return values.get(0);
+        return List.of("hello");
          
     } 
 

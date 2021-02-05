@@ -135,8 +135,12 @@ public class CreateTuneFile {
 //                     .collect(toList())
 //                     .stream();
 //
+
+             List<Object> headings = getHeadings();
 //             
              PrintWriter pw = new PrintWriter("tunesdata.txt");
+             
+             pw.println(headings.stream().limit(10).map(m -> (String)m).collect(joining("^")));
 //             
 //             Stream<String> summat =  Arrays.stream(textString.split("\n"));
 //             
@@ -176,18 +180,9 @@ public class CreateTuneFile {
             //streamOfLists.forEach(System.out::println);
             //System.exit(0);
         
-        
 
 
 
-        
-        
-        
-        
-
-
-
-        List<Object> headings = getHeadings();
     
     }
 
