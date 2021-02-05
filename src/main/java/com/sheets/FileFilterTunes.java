@@ -107,8 +107,7 @@ public class FileFilterTunes {
     
     public static void main(String[] args) throws IOException, GeneralSecurityException {
         
-        
-        
+        sheetsService = getSheetsService();        
         Sheets.Spreadsheets.Get request = sheetsService.spreadsheets().get(TUNES_SPREADSHEET_ID);   // Get actual spreadsheet no range included
         request.setIncludeGridData(true);
         Spreadsheet spreadsheet = request.execute();            // Use for links
@@ -130,7 +129,7 @@ public class FileFilterTunes {
         String googlePrefix = "http://docs.google.com/uc?export=open&id=";
         String closeTag = "\"/></audio><br>\n";
 
-        sheetsService = getSheetsService();
+
         List<Object> headings = getHeadings();
         //List<String> htmlLines = null;
         
@@ -269,6 +268,10 @@ public class FileFilterTunes {
             .execute();
         
         List<List<Object>> values = response.getValues();
+        
+        values.get(0).stream()
+                .forEach(o -> System.out.println(o));
+        
         return values.get(0);
          
     } 
