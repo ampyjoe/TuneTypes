@@ -107,13 +107,22 @@ public class FileFilterTunes {
     
     public static void main(String[] args) throws IOException, GeneralSecurityException {
         
-        staticFiles.location("/public");
         
         
-//        Spark.externalStaticFileLocation("/home/resources");
-//get("/home", (req, res) -> {
-//    return new ModelAndView("", "tunefilter.jsp");
-//});
+        Sheets.Spreadsheets.Get request = sheetsService.spreadsheets().get(TUNES_SPREADSHEET_ID);   // Get actual spreadsheet no range included
+        request.setIncludeGridData(true);
+        Spreadsheet spreadsheet = request.execute();            // Use for links
+        Sheet currSheet = spreadsheet.getSheets().get(0);       // Get the first spreadsheet
+        GridData theData = currSheet.getData().get(0);          // setStartXXX seems to have no effect    First page ?
+        
+        // Create a Stream where each tune is a List<String>
+        
+        //Stream<List<String>> = 
+        
+//        theData.getRowData().stream()
+//            .skip(2)
+//            .map(mapper)
+        
         
         
         
@@ -130,7 +139,7 @@ public class FileFilterTunes {
 
         //post("/tunes", (req, res) -> {
         
-        
+        staticFiles.location("/public");
         // Set up Javalin incl a dir for static files
         Javalin app = Javalin.create(config -> config.addStaticFiles("public")).start(7000);
         
@@ -148,11 +157,11 @@ public class FileFilterTunes {
             // As with other parameters, no selections means ALL performances of a song selected
             // TODO tidy up the filter lines
 
-        Sheets.Spreadsheets.Get request = sheetsService.spreadsheets().get(TUNES_SPREADSHEET_ID);   // Get actual spreadsheet no range included
-        request.setIncludeGridData(true);
-        Spreadsheet spreadsheet = request.execute();            // Use for links
-        Sheet currSheet = spreadsheet.getSheets().get(0);       // Get the first spreadsheet
-        GridData theData = currSheet.getData().get(0);          // setStartXXX seems to have no effect    First page ?
+//        Sheets.Spreadsheets.Get request = sheetsService.spreadsheets().get(TUNES_SPREADSHEET_ID);   // Get actual spreadsheet no range included
+//        request.setIncludeGridData(true);
+//        Spreadsheet spreadsheet = request.execute();            // Use for links
+//        Sheet currSheet = spreadsheet.getSheets().get(0);       // Get the first spreadsheet
+//        GridData theData = currSheet.getData().get(0);          // setStartXXX seems to have no effect    First page ?
         
 
         String htmlOutput = theData.getRowData().stream()   // A stream of RowData
