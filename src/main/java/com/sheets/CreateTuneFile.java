@@ -108,6 +108,8 @@ public class CreateTuneFile {
     }
     return 7000;
   }
+  
+  
     
     
     
@@ -138,7 +140,7 @@ public class CreateTuneFile {
 
              List<Object> headings = getHeadings();
 //             
-             PrintWriter pw = new PrintWriter("tunesdata.txt");
+             PrintWriter pw = new PrintWriter("src/main/resources/public/tunesdata.txt");
              
              pw.println(headings.stream().limit(10).map(m -> (String)m).collect(joining("^")));
 //             

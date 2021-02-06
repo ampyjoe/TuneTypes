@@ -18,6 +18,7 @@ import com.google.api.services.sheets.v4.model.Spreadsheet;
 import com.google.api.services.sheets.v4.model.ValueRange;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
+import io.javalin.http.staticfiles.Location;
 
 
 import java.io.File;
@@ -28,6 +29,7 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.GeneralSecurityException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -80,16 +82,58 @@ public class FilterTunes {
         String googlePrefix = "http://docs.google.com/uc?export=open&id=";
         String closeTag = "\"/></audio><br>\n";
         
-        List<List<String>> tuneDataList;       // Error on 271 if this declared as null????
-                
+        //.start(getHerokuAssignedPort())
+        // Set up Javalin incl a dir for static files
+        Javalin app = Javalin.create(config -> config.addStaticFiles("public")).start(getHerokuAssignedPort());
+        //Javalin app = Javalin.create().start(7000);
+        
+        app.get("test", ctx -> {
+            
+        List<List<String>> tuneDataList;       // Error on line 271 if this declared as null????
+        
+        //FileUtil.
+        
+            String person = null;
+            try {
+                Path file = new File("target/classes/public/tunesdata.txt").toPath();
+
+                Stream<String> lineDetail = Files.lines(file);
+ 
+                        lineDetail
+                                .forEach(System.out::println);
+
+
+            } catch (NoSuchElementException e) {
+                //System.out.println("No such user " + e);
+                throw new NoSuchElementException("No such user found");
+            } catch (IOException ex) { 
+                //System.out.println("Problem opening user data file.\n" + ex);
+                throw new IOException("Problem opening user data file");
+            }
+            
+            ctx.result("hello world");
+            
+        });
+
+
+        // Start listening for requests
+        app.post("/tunes", ctx -> {
+            
+        
+        List<List<String>> tuneDataList;       // Error on line 271 if this declared as null????
+        //List<String> tempList = new ArrayList<>();
+        //FileUtil.
+        
         String person = null;
         try {
-            Path file = new File("tunesdata.txt").toPath();
+            Path file = new File("target/classes/public/tunesdata.txt").toPath();
 
             Stream<String> lineDetail = Files.lines(file);
             tuneDataList  = 
                     lineDetail
-                    .map(l -> List.of(l.split("\\^",-2)))
+                    .map((String l) -> {
+                        return Arrays.asList(l.split("\\^",-2));    // 1.8 compatible
+                            })                            
                     .collect(toList());
 
                     
@@ -108,12 +152,7 @@ public class FilterTunes {
         System.out.println("Index for Melodic Range: " + headings.indexOf("Melodic Range"));
         
         
-        staticFiles.location("/public");
-        // Set up Javalin incl a dir for static files
-        Javalin app = Javalin.create(config -> config.addStaticFiles("public")).start(7000);
-        
-        // Start listening for requests
-        app.post("/tunes", ctx -> {
+
             
         // Get the Predicate to use with the data from sheets
         
@@ -211,13 +250,13 @@ public class FilterTunes {
     }
     
     
-    // Temporary - maybe should just be a settings class?
-    static List<Object> getHeadings() throws IOException, GeneralSecurityException{
-        
-
-        
-        return List.of("hello");
-         
-    } 
+//    // Temporary - maybe should just be a settings class?
+//    static List<Object> getHeadings() throws IOException, GeneralSecurityException{
+//        
+//
+//        
+//        return List.of("hello");
+//         
+//    } 
 
 }

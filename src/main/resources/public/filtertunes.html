@@ -127,7 +127,7 @@
            <br>
            <br><br>
 
-          <input type="submit" value="Submit search" />
+<!--          <input type="submit" value="Submit search" />-->
           
 
         </p>       
@@ -206,7 +206,7 @@ function submitPage() {
     theInputs = theFormElement.querySelectorAll('INPUT');
     var queryString = "";
     
-    for (index = 0; index < theInputs.length - 1; index++) { 
+    for (index = 0; index < theInputs.length; index++) { 
         if (theInputs[index].checked) {
             queryString += theInputs[index].name + "=" + theInputs[index].value + "&"; 
         }
