@@ -85,6 +85,7 @@ public class FilterTunes {
         //.start(getHerokuAssignedPort())
         // Set up Javalin incl a dir for static files
         Javalin app = Javalin.create(config -> config.addStaticFiles("public")).start(getHerokuAssignedPort());
+        //Javalin app = Javalin.create(config -> config.addStaticFiles("public")).start(7000);
         //Javalin app = Javalin.create().start(7000);
         
         app.get("test", ctx -> {
