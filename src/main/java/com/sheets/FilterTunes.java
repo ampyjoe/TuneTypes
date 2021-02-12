@@ -1,51 +1,23 @@
 package com.sheets;
 
-import com.google.api.client.auth.oauth2.Credential;
-import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
-import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
-import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
-import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
-import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
-import com.google.api.client.json.jackson2.JacksonFactory;
-import com.google.api.client.util.store.FileDataStoreFactory;
-import com.google.api.services.sheets.v4.Sheets;
-import com.google.api.services.sheets.v4.SheetsScopes;
-import com.google.api.services.sheets.v4.model.CellData;
-import com.google.api.services.sheets.v4.model.GridData;
-import com.google.api.services.sheets.v4.model.RowData;
-import com.google.api.services.sheets.v4.model.Sheet;
-import com.google.api.services.sheets.v4.model.Spreadsheet;
-import com.google.api.services.sheets.v4.model.ValueRange;
+
 import io.javalin.Javalin;
 import io.javalin.http.Context;
-import io.javalin.http.staticfiles.Location;
-
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.security.GeneralSecurityException;
+
 import java.util.*;
-import java.util.function.BiPredicate;
+
 import java.util.function.Predicate;
-import static java.util.stream.Collectors.mapping;
+
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.joining;
-import static java.util.stream.Collectors.toList;
-import java.util.stream.Stream;
-import spark.ModelAndView;
-import spark.Request;
-import spark.Response;
-import spark.Route;
-import spark.Spark;
-import static spark.Spark.post;
-import static spark.Spark.get;
-import static spark.Spark.staticFiles;
 
+import java.util.stream.Stream;
 
 // Since not that big, maybe first build a Grid of all tunes in a suitable way to use for all the stages?
 
@@ -80,33 +52,7 @@ public class FilterTunes {
         //Javalin app = Javalin.create(config -> config.addStaticFiles("public")).start(7000);
         //Javalin app = Javalin.create().start(7000);
         
-//        app.get("test", ctx -> {
-//
-//        List<List<String>> tuneDataList;       // Error on line 271 if this declared as null????
-//
-//        //FileUtil.
-//
-//            String person = null;
-//            try {
-//                Path file = new File("target/classes/public/tunesdata.txt").toPath();
-//
-//                Stream<String> lineDetail = Files.lines(file);
-//
-//                        lineDetail
-//                                .forEach(System.out::println);
-//
-//
-//            } catch (NoSuchElementException e) {
-//                //System.out.println("No such user " + e);
-//                throw new NoSuchElementException("No such user found");
-//            } catch (IOException ex) {
-//                //System.out.println("Problem opening user data file.\n" + ex);
-//                throw new IOException("Problem opening user data file");
-//            }
-//
-//            ctx.result("hello world");
-//
-//        });
+
 
 
         // Start listening for requests
@@ -211,7 +157,6 @@ public class FilterTunes {
         List<String> values;
         int pt = 0;
 
-
         // Build the predicate filter
         Predicate<List<String>> andFilter = o -> true;   // necessary to initialize outer attribute predicates (they'll all be AND'd)
 
@@ -226,8 +171,14 @@ public class FilterTunes {
                      System.out.println("key: " + key + " value: " + value);
 
                      System.out.println("Other key: " + key + " value: " + value);
-                     orFilter = orFilter.or((List<String> o) ->
-                             o.get(headings.indexOf(key)).equalsIgnoreCase(value));
+                     //if (key.equalsIgnoreCase("Melodic Range")) {
+                             for (String singleValue: value.split(":")) {
+                                 orFilter = orFilter.or((List<String> o) ->
+                                         o.get(headings.indexOf(key)).equalsIgnoreCase(singleValue));
+                             }
+
+//                     } else orFilter = orFilter.or((List<String> o) ->              // This might not be necessary as it's a special case of the if stmt
+//                             o.get(headings.indexOf(key)).equalsIgnoreCase(value));
 
                  }
                  andFilter = andFilter.and(orFilter);

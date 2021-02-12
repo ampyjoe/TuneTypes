@@ -217,7 +217,7 @@ public class ListTunes {
     
     
     // Temporary - maybe should just be a settings class?
-    static List<Object> getHeadings() throws IOException, GeneralSecurityException{
+    static List<Object> getHeadings() throws IOException{
         
         String range = "Sheet1!A2:R52"; // TODO rename to other than Sheet1
         

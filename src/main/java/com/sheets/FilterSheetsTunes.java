@@ -25,23 +25,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.function.BiPredicate;
 import java.util.function.Predicate;
-import static java.util.stream.Collectors.mapping;
-import static java.util.stream.Collectors.toList;
+
 import static java.util.stream.Collectors.joining;
-import spark.ModelAndView;
-import spark.Request;
-import spark.Response;
-import spark.Route;
-import spark.Spark;
-import static spark.Spark.post;
-import static spark.Spark.get;
 import static spark.Spark.staticFiles;
 
 
@@ -251,7 +241,7 @@ public class FilterSheetsTunes {
     
     
     // Temporary - maybe should just be a settings class?
-    static List<Object> getHeadings() throws IOException, GeneralSecurityException{
+    static List<Object> getHeadings() throws IOException {
         
         String range = "Sheet1!A2:R52"; // TODO rename to other than Sheet1
         
@@ -263,9 +253,35 @@ public class FilterSheetsTunes {
         return values.get(0);
          
     }
+
+    //        app.get("test", ctx -> {
+//
+//        List<List<String>> tuneDataList;       // Error on line 271 if this declared as null????
+//
+//        //FileUtil.
+//
+//            String person = null;
+//            try {
+//                Path file = new File("target/classes/public/tunesdata.txt").toPath();
+//
+//                Stream<String> lineDetail = Files.lines(file);
+//
+//                        lineDetail
+//                                .forEach(System.out::println);
+//
+//
+//            } catch (NoSuchElementException e) {
+//                //System.out.println("No such user " + e);
+//                throw new NoSuchElementException("No such user found");
+//            } catch (IOException ex) {
+//                //System.out.println("Problem opening user data file.\n" + ex);
+//                throw new IOException("Problem opening user data file");
+//            }
+//
+//            ctx.result("hello world");
+//
+//        });
     
-    
-    
-    
+
 
 }
