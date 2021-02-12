@@ -29,15 +29,7 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.GeneralSecurityException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.NoSuchElementException;
-import java.util.Set;
+import java.util.*;
 import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 import static java.util.stream.Collectors.mapping;
@@ -75,7 +67,7 @@ public class FilterTunes {
     
     
     
-    public static void main(String[] args) throws IOException, GeneralSecurityException {
+    public static void main(String[] args) {
         
         // Some HTML code for creating URLs
         String audioTagPrefix = "<audio controls><source src=\"";
@@ -88,33 +80,33 @@ public class FilterTunes {
         //Javalin app = Javalin.create(config -> config.addStaticFiles("public")).start(7000);
         //Javalin app = Javalin.create().start(7000);
         
-        app.get("test", ctx -> {
-            
-        List<List<String>> tuneDataList;       // Error on line 271 if this declared as null????
-        
-        //FileUtil.
-        
-            String person = null;
-            try {
-                Path file = new File("target/classes/public/tunesdata.txt").toPath();
-
-                Stream<String> lineDetail = Files.lines(file);
- 
-                        lineDetail
-                                .forEach(System.out::println);
-
-
-            } catch (NoSuchElementException e) {
-                //System.out.println("No such user " + e);
-                throw new NoSuchElementException("No such user found");
-            } catch (IOException ex) { 
-                //System.out.println("Problem opening user data file.\n" + ex);
-                throw new IOException("Problem opening user data file");
-            }
-            
-            ctx.result("hello world");
-            
-        });
+//        app.get("test", ctx -> {
+//
+//        List<List<String>> tuneDataList;       // Error on line 271 if this declared as null????
+//
+//        //FileUtil.
+//
+//            String person = null;
+//            try {
+//                Path file = new File("target/classes/public/tunesdata.txt").toPath();
+//
+//                Stream<String> lineDetail = Files.lines(file);
+//
+//                        lineDetail
+//                                .forEach(System.out::println);
+//
+//
+//            } catch (NoSuchElementException e) {
+//                //System.out.println("No such user " + e);
+//                throw new NoSuchElementException("No such user found");
+//            } catch (IOException ex) {
+//                //System.out.println("Problem opening user data file.\n" + ex);
+//                throw new IOException("Problem opening user data file");
+//            }
+//
+//            ctx.result("hello world");
+//
+//        });
 
 
         // Start listening for requests
@@ -160,7 +152,8 @@ public class FilterTunes {
         Predicate<List<String>> aFilter = getStringPredicate(ctx, headings);
         
                 
-        int finalPt = Integer.parseInt(ctx.formParam("Performance Type")); //ctx.formParam("Performance Type");
+        int finalPt = Integer.parseInt(Objects.requireNonNull(ctx.formParam("Performance Type")));  // Or return "1" if null by catching null?
+
         
         // Now get the results and output as HTML links for the songs
             // As with other parameters, no selections means ALL performances of a song selected
@@ -203,7 +196,7 @@ public class FilterTunes {
                
     }
     
-    static Predicate<List<String>> getStringPredicate(Context ctx, List<String> headings) throws IOException, GeneralSecurityException {
+    static Predicate<List<String>> getStringPredicate(Context ctx, List<String> headings)  {
         
         //List<Object> headings = getHeadings();
         
@@ -215,7 +208,7 @@ public class FilterTunes {
         System.out.println("The params:" + queryParams);
 
         Iterator<Map.Entry<String, List<String>>> itr = queryParams.iterator();
-        List<String> values = null;
+        List<String> values;
         int pt = 0;
 
 
