@@ -10,7 +10,8 @@
       <fieldset>
        <legend>Selecting Tunes</legend>
        <p>
-           Name: <input name="Name"><BR><br>
+           <label>Name: </label>
+           <input name="Name"><BR><br>
            
           <label>Tonality: </label>            
           <input type = "checkbox"
@@ -196,9 +197,11 @@ function submitPage() {
     var queryString = "";
     
     for (index = 0; index < theInputs.length; index++) { 
-        if (theInputs[index].checked) {
+        if (theInputs[index].checked || theInputs[index].name === "Name") {
             queryString += theInputs[index].name + "=" + theInputs[index].value + "&"; 
         }
+<!--        else if (theInputs[index] == 0 )-->
+<!--            queryString += theInputs[index].name + "=" + theInputs[index].value + "&";-->
     }
     //queryString += theInputs[theInputs.length-1].name + "=" + theInputs[theInputs.length-1].value;
     
