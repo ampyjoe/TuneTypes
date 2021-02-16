@@ -42,12 +42,20 @@ public class FilterTunes {
     public static void main(String[] args) {
         
         // Some HTML code for creating URLs
-        String audioTagPrefix = "<audio controls><source src=\"";
+        String audioTagPrefix = "<audio id = 'tune' controls><source src=\"";
         String googlePrefix = "http://docs.google.com/uc?export=open&id=";
-        String closeTag = "\"/></audio><br>\n";
+        String closeTag = "\"/></audio>\n";
 
         // Set up Javalin incl a dir for static files
         Javalin app = Javalin.create(config -> config.addStaticFiles("public")).start(getHerokuAssignedPort());
+
+
+//        app.post("/tunedetail", ctx -> {
+//
+//            ctx.result("hello");
+//
+//                });
+
 
         // Listen for POST to "/tunes"
         app.post("/tunes", ctx -> {
@@ -85,10 +93,13 @@ public class FilterTunes {
                 .filter(t -> t.get(6 + finalPt) != null)                    // Check that a performance of appropriate performance type exists for this song
                 .filter(t -> t.get(6 + finalPt).startsWith("http"))         // And that it looks like a URL (TODO actually check if valid URL??)
                 .filter(aFilter)
-               .map(o -> (
-                        o.get(headings.indexOf("Name")) 
-                        + " ... "
-                        + audioTagPrefix + o.get(6 + finalPt) + closeTag))
+               .map(o -> ("<div name ='" +
+                        o.get(headings.indexOf("Name"))
+                        //+ "' onClick = 'alert (\"hello\");'" +
+                        + "'> "
+                        + o.get(headings.indexOf("Name"))
+                        + audioTagPrefix + o.get(6 + finalPt) + closeTag
+               + "</div><br>"))
 
                                                                             // TODO Sort the output?
                 .collect(joining());

@@ -138,11 +138,13 @@ public class CreateTuneFile {
 //                     .stream();
 //
 
+
+            int numColumnsToGrab = 10;
              List<Object> headings = getHeadings();
 //             
              PrintWriter pw = new PrintWriter("src/main/resources/public/tunesdata.txt");
              
-             pw.println(headings.stream().limit(10).map(m -> (String)m).collect(joining("^")));
+             pw.println(headings.stream().limit(numColumnsToGrab).map(m -> (String)m).collect(joining("^")));
 //             
 //             Stream<String> summat =  Arrays.stream(textString.split("\n"));
 //             
@@ -157,7 +159,7 @@ public class CreateTuneFile {
             .skip(2)
             .filter(r -> r.getValues().get(0).getFormattedValue()!=null)    // Make sure the tune name has a name!
             .map( (RowData r) -> {
-                return r.getValues().stream().limit(10)
+                return r.getValues().stream().limit(numColumnsToGrab)
                         .map((CellData c) -> {
                             if (c.getHyperlink() != null) {
                                 if (c.getHyperlink().contains("view") && c.getHyperlink().contains("file/d/"))

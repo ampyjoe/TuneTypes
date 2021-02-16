@@ -23,6 +23,9 @@
           <input type = "checkbox"
                  name = "Tonality"
                  value = "Dorian" >Dorian
+           <input type = "checkbox"
+                  name = "Tonality"
+                  value = "Dorian/minor" >Dorian/minor
           <br><Br>
           
           <label>Tonic: </label>
@@ -60,7 +63,7 @@
                  value = "1:2:3:4:5" >1 - 5
           <input type = "checkbox"
                  name = "Melodic Range"
-                 value = "6:7:8" >6 - 9
+                 value = "6:7:8" >6 - 8
           <input type = "checkbox"
                  name = "Melodic Range"
                  value = "9:10:11" >9 - 11
@@ -178,8 +181,34 @@
 //  } );
 //} );
 
+
+//alert("I'm here!");
+
+function checkTunes() {
+
+//alert("AND now I'm here");
+
+var theAudioElements = document.getElementsByTagName('AUDIO');
+
+    for (var i = 0; i < theAudioElements.length; i += 1) {
+        theAudioElements[i].addEventListener('playing', function(e){
+        console.log('Audio playback has started ...');
+        console.log('Playback started at : '+ e.target.currentTime +" seconds");
+        console.log('Playback started on : '+ e.target.parentElement.innerText);
+        }, false);
+    }
+    alert (i);
+
+}
+
+
+
     
-    
+function play(theElement) {
+
+    alert("ping; " + theElement);
+
+    }
     
     
     
@@ -246,6 +275,8 @@ function filterTunes(filterParams) {
 			if (xhr.status === OK) {
                             // Important!! Element update must be here because call is asynchronous
                            document.getElementById("container").innerHTML = xhr.responseText;
+                           //alert("now I'm here");
+                           checkTunes();
 			} else {
                             if (xhr.status === 403) {
                                 alert ("Not permitted. Sorry.");
