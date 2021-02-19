@@ -134,7 +134,7 @@
     
     <button onclick="submitPage()">Filter</button>
     
-    <DIV id = "container"></DIV>     <!--To be used to list songs TODO add scrollwheels?-->
+    <DIV id = "container"></DIV>  <DIV id = "details"></DIV>   <!--To be used to list songs TODO add scrollwheels?-->
     
   </body>
 </html>
@@ -182,7 +182,7 @@
 //} );
 
 
-//alert("I'm here!");
+previousTune = null;    // TODO check best scope to use here
 
 function checkTunes() {
 
@@ -195,9 +195,13 @@ var theAudioElements = document.getElementsByTagName('AUDIO');
         console.log('Audio playback has started ...');
         console.log('Playback started at : '+ e.target.currentTime +" seconds");
         console.log('Playback started on : '+ e.target.parentElement.innerText);
+        if (previousTune != null && previousTune != e.target) previousTune.pause();
+            previousTune = e.target;
+            //alert(e.target.id); // TODO. This is being called twice??
+            //document.getElementsByTagName('DIV')[0] = e.target.id;
+            document.getElementById("details").innerHTML = e.target.id.replace(/#/g,"<BR>");
         }, false);
     }
-    alert (i);
 
 }
 

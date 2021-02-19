@@ -68,7 +68,7 @@ public class FilterTunes {
             tuneDataList  =
                     lineDetail
                     .map((String l) -> {
-                        return Arrays.asList(l.split("\\^",-2));    // 1.8 compatible
+                        return Arrays.asList(l.split("\\^",-2));    // 1.8 compatible (not using List.of)
                             })
                     .collect(toList());
 
@@ -77,7 +77,7 @@ public class FilterTunes {
         }
 
         List<String> headings = tuneDataList.get(0);
-        System.out.println("tuneDataList: " + headings);
+        System.out.println("tuneDataHeadings: " + headings);
 
         // Get the Predicate to use with the data
         Predicate<List<String>> aFilter = getStringPredicate(ctx, headings);
@@ -98,7 +98,7 @@ public class FilterTunes {
                         //+ "' onClick = 'alert (\"hello\");'" +
                         + "'> "
                         + o.get(headings.indexOf("Name"))
-                        + audioTagPrefix + o.get(6 + finalPt) + closeTag
+                        + audioTagPrefix.replace("tune", o.get(17)) + o.get(6 + finalPt) + closeTag // TODO Fix this hack...Hard-coding 17 as lyrics
                + "</div><br>"))
 
                                                                             // TODO Sort the output?

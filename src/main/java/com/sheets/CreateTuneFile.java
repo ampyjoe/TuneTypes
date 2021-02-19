@@ -139,7 +139,7 @@ public class CreateTuneFile {
 //
 
 
-            int numColumnsToGrab = 10;
+            int numColumnsToGrab = 18;  // 10 for just the search items, 18 for all attributes TODO 18 problematic due to it adding lines and therefore new item in Stream
              List<Object> headings = getHeadings();
 //             
              PrintWriter pw = new PrintWriter("src/main/resources/public/tunesdata.txt");
@@ -166,7 +166,8 @@ public class CreateTuneFile {
                                     return googlePrefix + c.getHyperlink().split("file/d/")[1].split("/view")[0];
                                 else return "";
                             }
-                            else return c.getFormattedValue();
+                            // Replace newlines with # where value not null. TODO File.lines splits on \n, \r, or \n\r hence need to subst "#" as \n in data file
+                            else return c.getFormattedValue()==null?null:c.getFormattedValue().replace('\n','#');
                         })
                         //.collect(toList());
                         .collect(joining("^"));
