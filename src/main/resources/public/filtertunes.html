@@ -134,10 +134,33 @@
     
     <button onclick="submitPage()">Filter</button>
     
-    <DIV id = "container"></DIV>  <DIV id = "details"></DIV>   <!--To be used to list songs TODO add scrollwheels?-->
+<!--    <DIV id = "container"></DIV>  <DIV id = "details"></DIV>   &lt;!&ndash;To be used to list songs TODO add scrollwheels?&ndash;&gt;-->
+
+    <div class="float-container">
+
+        <div class="float-child">
+            <div id="container" class="green">Song list</div>
+        </div>
+
+        <div class="float-child">
+            <div id="details" class="blue">Song details</div>
+        </div>
+
+    </div>
     
   </body>
 </html>
+
+<style>
+
+
+.float-child {
+width: 30%;
+float: left;
+padding: 20px;
+border: 2px solid blue;
+}
+</style>
 
 <script>
 
@@ -199,7 +222,7 @@ var theAudioElements = document.getElementsByTagName('AUDIO');
             previousTune = e.target;
             //alert(e.target.id); // TODO. This is being called twice??
             //document.getElementsByTagName('DIV')[0] = e.target.id;
-            document.getElementById("details").innerHTML = e.target.id.replace(/#/g,"<BR>");
+            document.getElementById("details").innerText = e.target.id.replace(/#/g,"\n");  // innerText vs innerHTML, dealing w quotes
         }, false);
     }
 
