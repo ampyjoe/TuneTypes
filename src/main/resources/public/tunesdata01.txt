@@ -1,0 +1,338 @@
+Name^Tonic^Tonality^Melodic Range^Harmonic Level^Harmonization Type^recorded voice/piano^recorded piano (full)^recorded piano (chords)^recorded piano melody^Origin^Chords^S.D. Range^Features of Interest^Contributor^Contributor's note^^lyrics
+Specter^E^Dorian^5^2^2^http://docs.google.com/uc?export=open&id=178qlqyTGpbKkAwHzZ59JEi7SMzaNrsPS^http://docs.google.com/uc?export=open&id=1xg4M7KfwXyTrZI-HEn9KpmAZQ7TP5Lg7^http://docs.google.com/uc?export=open&id=1voR5jcwmqdJkXwIohEMZdCISCMBn2Olp^http://docs.google.com/uc?export=open&id=1-cQpCV6pI7dvD-5m8OKRzZ1hgrUkgo5A^words and music by Anne-Marie Hildebrandt^i,IV,VII^1-5^null^AMH^This is a ghost song.^null^I can see the light in the attic where you’re wandering alone.
+I can hear the song of your heartache when the wind starts to moan
+I just want to know, darling, why you must be always on the roam
+Tell me what you seek, or are you already home?
+Greensleeves^D^Dorian^10^3^1^http://docs.google.com/uc?export=open&id=1J-9nrTsxyXWTh1f2QOGyV8g6c1QqaMyQ^http://docs.google.com/uc?export=open&id=1S2KOmLDIQk2J00jULv7mC42Lq4p8vwIq^null^http://docs.google.com/uc?export=open&id=1nEjtqwYrcPADImD2bDj0GkB8YaxLgTRC^England^i, VII,III,v^5--7 w/ acc^null^AMH^null^null^Alas my love you do me wrong
+To cast me off discourteously;
+And I have loved you oh so long
+Delighting in your company.
+Greensleeves was my delight,
+Greensleeves my heart of gold
+Greensleeves was my heart of joy
+And who but my lady Greensleeves.
+Pixie Dance^A^Dorian^8^3^3^http://docs.google.com/uc?export=open&id=1dJL-VI5-EBdQdmHCWSgdjj59XAreSlWT^http://docs.google.com/uc?export=open&id=1L9W6qwEC69SFS5MjyiRpH0wkjZy25dcy^http://docs.google.com/uc?export=open&id=1abHx5a6ILnbrTfs9n5V2Abibgsl7poQi^http://docs.google.com/uc?export=open&id=1VMaejtfiyqiTOzoMsVIBR5NsBWeqhpxD^original^I,IV,VII,v^1-1^null^AMH^null^null^Deep within the misty hinterland, under shafts of golden light,
+Music drifts among the mossy stones standing just beyond our sight.
+Tiny feet and tattered clothing, streaked green and brown with grass and soil.
+Whirling in the setting sunlight, scattered like stars among the vines.
+Scarborough Fair^C^Dorian/minor^9^3^1^http://docs.google.com/uc?export=open&id=1uPIc3U_4rtoKahHK1189CHt1lfuTvC-X^http://docs.google.com/uc?export=open&id=1bfw3Sw9NeEcvWZBN70AbhLbMJjSbLfBT^null^http://docs.google.com/uc?export=open&id=1VNd-OQ2Ckh-HPbcqaxrgWGZT7i7WOG5i^England^i,VII,VI,III^7--1^null^AMH^null^null^Are you going to Scarborough Fair
+Parsley, sage, rosemary and thyme
+Remember me to one who lives there
+She once was a true love of mine
+Shallow Water^B^Dorian/minor^5^3^1^http://docs.google.com/uc?export=open&id=14P9CsgJhsI4iLL4t4bM7qFrFJZTMJE12^http://docs.google.com/uc?export=open&id=1kKFAVFX_atoX7uQTZM2q_YbFt36_rWRO^null^http://docs.google.com/uc?export=open&id=1Ojl-vNw3PFMabgQqq9fI-5qPAl3CQwPX^words and music by Anne-Marie Hildebrandt^i,VII,flatVI,V^1-5^null^AMH^This song is an attempt to confront my fear of sharks.^null^I’m gonna find you in the shallow water.
+I’m gonna be everything you’ve dreamed.
+Don’t have to worry now, I’m right behind you.
+Won’t have to wonder anymore what waits unseen.
+The Rowan Tree^C^Dorian/minor^11^4^2^http://docs.google.com/uc?export=open&id=1j1MY7gExx5K1d61Ui2o1LDRPMWhFQqfN^http://docs.google.com/uc?export=open&id=1pyE4-d2UIOsQYsc13qWpHZ68PoT-aVld^http://docs.google.com/uc?export=open&id=1Z0vMX2GES9vlg3h6GuKnoGzW9For75LL^http://docs.google.com/uc?export=open&id=1cgkAN_hNNnEBgOD7Obcmw-9BwZAEuJ6e^words and music by Anne-Marie Hildebrandt^i,VII,IV,v, lowVI^7--3^null^AMH^null^null^Rustling in the summer wood with long and slender leaves,
+In among the oak and ash there stands a lone rowan tree.
+Sunlight warms its highest branches, soil feeds its roots,
+Sparrows deck its rosy boughs, to taste the flesh of its fruits.
+Autumn blows its leaves to the hillsides,
+Winter crusts its branches in gems.
+Every spring it dons its fine greenery,
+Summer’s come again.
+Seasons come and seasons go, the rowan tree stands tall,
+Offering its crimson fruits and snowy blossoms for all.
+Rustling in the summer wood with long and slender leaves,
+In among the oak and ash there stands a lone rowan tree.
+Lightly Row^D^major^5^1^2^http://docs.google.com/uc?export=open&id=1cmvYCfPnMA0kjwobDhpP8MRxAdAb2Ev0^http://docs.google.com/uc?export=open&id=1pCd-sAROWsORvzS0_7yKyRS1eZF2aYDB^null^http://docs.google.com/uc?export=open&id=1l1uHoeiOg9ffVGR93juAVtB9LufoMDzj^Germany^I,V^1-5^null^AMH^null^null^Lightly row, lightly row,
+O'er the glassy waves we go.
+Smoothly glide, smoothly glide,
+On the silent tide.
+Let the winds and waters be
+Mingled with our melody.
+Sing and float, sing and float
+In our little boat.
+Love Somebody^D^major^5^1^1^http://docs.google.com/uc?export=open&id=1yquEFatGt1UJblPJUkxXozPKBSmyzASW^http://docs.google.com/uc?export=open&id=1dJ-nArHr0gZMUM0XFD1BCGpPn4MIuYPv^null^http://docs.google.com/uc?export=open&id=1SnV1KMO4d2hunOziAoJ-o1a2e22HXIbQ^20's^I,V^1-5^null^AMH^null^null^Love somebody, yes I do,
+Love somebody, yes I do,
+Love somebody, yes I do,
+Love somebody and I won’t say who.
+Mary Had a Little Lamb^D^major^5^1^1^http://docs.google.com/uc?export=open&id=1OAc1mAa1dOYijvPe9rKHIxKg1PRaSYTA^http://docs.google.com/uc?export=open&id=1bij-ICnhfFit8quW7wkZ8JbfOsRurRWo^null^http://docs.google.com/uc?export=open&id=1wG7vvpo7i1jgqLLfYe-wJHql7ADfYUL1^nursery rhyme^I,V^1-5^null^AMH^null^null^Mary had a little lamb,
+Little lamb, little lamb,
+Mary had a little lamb
+Whose fleece was white as snow.
+And everywhere that Mary went,
+Mary went, Mary went,
+Everywhere that Mary went
+The lamb was sure to go.
+The Hokey Pokey^A^major^5^1^1^http://docs.google.com/uc?export=open&id=15sazV_5-l7BxA3G6vnXLbEwZ2I3zZrHU^http://docs.google.com/uc?export=open&id=1nuIEeo_87GF5OM6DIJlp6zfv_SRjIKfZ^null^http://docs.google.com/uc?export=open&id=1pG80D7aSVlZmrdMuc_8FP2y1K50QSkhD^children^I,V^1-5 w/ acc^null^AMH^I loved doing the motions to this song as a child.^null^You put your right foot in,
+You put your right foot out,
+You put your right foot in,
+And you shake it all about.
+You do the hokey pokey and you turn yourself around.
+That’s what it’s all about.
+Tom Dooley^G^major^6^1^1^http://docs.google.com/uc?export=open&id=1PQvMFnHWuwG4riWWDsBjKbDUMSMlwnpz^http://docs.google.com/uc?export=open&id=1iGBoeE6jwc7ExfjXH9aJvIqaCIwQwx4r^null^http://docs.google.com/uc?export=open&id=1oUbAAO9V25Ix9k1qi8Wz516TZR1BEgGz^American folk^I,V^5-3^null^AMH^null^null^Hang down your head Tom Dooley,
+Hang down your head and cry
+Hang down your head Tom Dooley
+Poor boy you’re bound to die.
+When the Saints Go Marching In^E^major^5^1^2^http://docs.google.com/uc?export=open&id=1I0G8BjsNl8UD6TY9XssTN8YZWTPrSY9W^http://docs.google.com/uc?export=open&id=1j8iYIWPjjF9oK32khq-udCilguIzJ6TA^null^http://docs.google.com/uc?export=open&id=1Yjd2fKXmS_PONM4rR4M6NDyQ83Qo3612^spiritual^I,V^1-5^null^AMH^null^null^Oh when the saints go marching in,
+Oh when the saints go marching in,
+How I long to be in that number
+When the saints go marching in.
+Auld Lang Syne^D^major^9^2^1^http://docs.google.com/uc?export=open&id=1OjUJXJFJeYAm2933DYmxU4PqQPiujLx0^http://docs.google.com/uc?export=open&id=1z_Aib_-vOmjrwwILbP3gT5B7TrSAEtzv^null^http://docs.google.com/uc?export=open&id=18cPLog7KtCpB7uuCZpNrwywak4FRRd86^Scottish^I,IV,V^5--6 w/ acc^null^AMH^This is a song we sing on New Year's Eve.^null^Should auld acquaintance be forgot,
+and never brought to mind?
+Should auld acquaintance be forgot,
+and auld lang syne?
+For auld lang syne, my jo,
+for auld lang syne,
+we’ll tak' a cup o’ kindness yet,
+for auld lang syne.
+Birds^F sharp^major^5^2^2^http://docs.google.com/uc?export=open&id=1jj5ONoU9CkvHBuDI9_O4YCpYrwPWNtdb^http://docs.google.com/uc?export=open&id=1AeATxrYqWo9NM0vgHo8fym1SORiifLUC^http://docs.google.com/uc?export=open&id=1Vjz_DNC_9cP8YI4e9rxvQX_OQ5ydP_oG^http://docs.google.com/uc?export=open&id=14CmQ-TvYjlVpRymRaTwlaWDwqxFAsC7R^words and music by Anne-Marie Hildebrandt^I,IV,V^1-5^null^AMH^null^null^Up above a cloud of feathery creatures swirls and dips and flows.
+Now they flutter down to rest on the branches of the tree below.
+Then at once, without a warning, small wings flap and surge and veer,
+Up they rise into the sapphire sky before they disappear.
+Camptown Races^B^major^8^2^1^Camptown Races^Camptown Races^Camptown Races^Camptown Races^nursery rhyme^I,IV,V^1-1^null^AMH^null^null^The Campptown ladies sing this song,
+Doo-da, Doo-da
+The Camptown racetrack's five miles long
+Oh, de doo-da day
+Goin' to run all night
+Goin' to run all day
+I bet my money on a bob-tailed nag
+Somebody bet on the gray
+Come Thou Fount of Every Blessing^C^major^8^2^1^http://docs.google.com/uc?export=open&id=16TPlvMDHUJ65tFiHAD8cp5voP86HkvQY^http://docs.google.com/uc?export=open&id=1zkZaKhJ2IAL7Y5vqTFTgAYeQYwxfboLY^null^http://docs.google.com/uc?export=open&id=1CQodbX14oLSJnMw5T2Qdhsgw9M68x7TM^hymn^I,IV,V^1-1^null^AMH^null^null^Come, Thou Fount of every blessing
+Tune my heart to sing Thy grace
+Streams of mercy, never ceasing
+Call for songs of loudest praise
+Teach me some melodious sonnet
+Sung by flaming tongues above
+Praise the mount, I'm fixed upon it
+Mount of Thy redeeming love
+For He's a Jolly Good Fellow^C^major^6^2^2^http://docs.google.com/uc?export=open&id=1UA_wAwLdsMs77oJLfQ5TJIer91H0Xi91^http://docs.google.com/uc?export=open&id=1CRG3krCE9D10IPQNrmI1RCgTAOhjdEnP^null^http://docs.google.com/uc?export=open&id=1mDV6NpKnNLMXdvadmuEG9aqJf__ghZFy^English folk^I,IV,V^1-6^null^AMH^null^null^For he's a jolly good fellow, for he's a jolly good fellow
+For he's a jolly good fellow, which nobody can deny
+Which nobody can deny, which nobody can deny
+For he's a jolly good fellow, for he's a jolly good fellow
+For he's a jolly good fellow, which nobody can deny!
+Go Tell Aunt Rhody^D flat^major^6^2^1^null^null^null^null^folk^I,IV,V^1-6^null^AMH^null^null^Go tell Aunt Rhody
+Go tell Aunt Rhody
+Go tell Aunt Rhody
+The old gray goose is dead.
+Happy Birthday^F^major^8^2^2^http://docs.google.com/uc?export=open&id=1_4af-o9hFhMKusO6ffeSxqJNZy8Y9gyR^http://docs.google.com/uc?export=open&id=12zeAhxlpGxA9vbxQsS5dF0xx7z8qTTdG^null^http://docs.google.com/uc?export=open&id=1nHerfj-LGLBPF5ksU13_LEKDGeBNAxDQ^folk^I,IV,V^5-5^null^AMH^null^null^Happy birthday to you,
+Happy birthday to you,
+Happy birthday dear somebody,
+Happy birthday to you.
+Jingle Bells^E^major^5^2^1^http://docs.google.com/uc?export=open&id=1Jh22d3aDoZ2zsaaqr1w6YAqXVela8aQ7^http://docs.google.com/uc?export=open&id=10qXLD1tve-LOcK92C0Z5Kews1_8LYHFL^null^http://docs.google.com/uc?export=open&id=1rbO0yEZGZXdFxY0Ctt4_Jc94DZg2KqFG^holiday^I,IV,V^1-5^null^AMH^null^null^Jingle bells, jingle bells,
+Jingle all the way.
+Oh what fun it is to ride
+On a one horse open sleigh.
+On Top of Old Smoky^B flat^major^8^2^1^http://docs.google.com/uc?export=open&id=1JSk7auD5wojWXF8DjfgSpXvXay1uwLLb^http://docs.google.com/uc?export=open&id=1f2-DXutrsW2iWBxv7zgBoQ1QaVh5Xjqm^null^http://docs.google.com/uc?export=open&id=1iHkUj5VyFhsLeZKBRtocNx-PLM2a_bkG^American folk^I,IV,V^1-1^doesn't start on I^AMH^Perhaps more well known as On Top of Spaghetti.^null^On top of old Smoky
+All covered with snow
+I lost my true lover
+For courtin' so slow
+For courting's a pleasure
+But parting is grief
+And the false hearted lover 
+Is worse than a thief.
+Twinkle, Twinkle Little Star^E flat^major^6^2^1^http://docs.google.com/uc?export=open&id=1K8J-Iku2kB0cOaB7X3OWuyk8_Hs5YgbQ^http://docs.google.com/uc?export=open&id=1ctgmJRSv52OI0FSWhDIUcXpiBckxIzr0^null^http://docs.google.com/uc?export=open&id=1HKLju40voVr7AC_wm42RUU_1duj6XtN-^nursery rhyme^I,IV,V^1-6^null^AMH^null^null^Twinkle twinkle little star,
+How I wonder what you are.
+Up above the world so high,
+Like a diamond in the sky,
+Twinkle twinkle little star,
+How I wonder what you are.
+Voyager^A flat^major^5^2^1^http://docs.google.com/uc?export=open&id=17hyHme7PAKQbd5NYsyYz-RvuLn3yv8AD^http://docs.google.com/uc?export=open&id=1DSbKeyIrirmAO144WmSL3nJD9dZF7UOR^http://docs.google.com/uc?export=open&id=1knmZStqO8UWEbm-7UDnSzYaBlyrac7ut^http://docs.google.com/uc?export=open&id=1_Do_d26GfDpW3s94JKo1a84BVeUV1pAO^words and music by Anne-Marie Hildebrandt^I,IV,V^1-5^null^AMH^null^null^Into the sky from this blue and green sphere,
+Making my way through an unknown frontier.
+Giants and moons whisper news from afar.
+I am lost in the stars, I am lost in the stars.
+All Through the Night^F^major^9^3^1^All Through the Night^All Through the Night^All Through the Night^All Through the Night^Welsh^I,ii,IV,V^5--6^null^AMH^I learned this Welsh lullaby as a teenager, but in Welsh.^null^Sleep, my child, and peace attend thee,
+All through the night
+Guardian angels God will send thee,
+All through the night
+Soft the drowsy hours are creeping,
+Hill and dale in slumber sleeping
+I my loved ones' watch am keeping,
+All through the night.
+Be Thou My Vision^D^major^11^3^1^Be Thou My Vision^http://docs.google.com/uc?export=open&id=1XIg_GQThgN3NlHJrlSs3xbSsHVxWzJRU^null^http://docs.google.com/uc?export=open&id=1FLH1L_f3KnKMo6VupK9j2FZQ7MWcYVVh^Irish^I,IV,V,vi^5--1^null^AMH^I love singing this Irish hymn with my Celtic harp.^null^Be thou my vision, o lord of my heart
+Naught be all else to me, save that thou art
+Thou my best thought, by day or by night
+Waking or sleeping, thy presence my light
+Five Hundred Miles^G^major^6^3^1^http://docs.google.com/uc?export=open&id=1DuA2hLr8csurJlSUWYcmD293dO2n8beU^http://docs.google.com/uc?export=open&id=1m_vM0gTH1J4IBdaRGdUYAasYFBOEWfY5^null^http://docs.google.com/uc?export=open&id=17mM546qRZikkIUgRjV4rEYDDPmxFsDjB^American folk^I,ii,IV,V,I^5-3^null^AMH^I first heard this song on the soundtrack for "Inside Llewyn Davis" and have since learned and performed it.^null^If you missed the train I'm on
+You will know that I am gone
+You can hear the whistle blow a hundred miles
+A hundred miles, a hundred miles,
+A hundred miles, a hundred miles
+You can hear the whistle blow a hundred miles.
+Loch Lomond^E^major^9^3^1^http://docs.google.com/uc?export=open&id=1VMi7lKwRX03nnBwbwssE3aX4AVMPAwmq^http://docs.google.com/uc?export=open&id=1_SRMOYaj_4-H7Rxk2dIxQREWxSONg9t7^null^http://docs.google.com/uc?export=open&id=1tNh9oEFvWAYalyOYlUKyophbmuDGdVa0^Scottish^I,IV,V,vi^5--6^null^AMH^I first learned this beautiful song as a teenager. Since then, I've sung it hundreds of times and have an arrangement published by Hinshaw. ^null^By yon bonnie banks and by yon bonnie braes
+Where the sun shines bright on Loch Lomond
+Where me and my true love were ever won't to gae
+On the bonnie, bonnie banks o' Loch Lomond.
+O ye'll tak' the high road and I'll tak' the low road
+And I'll be in Scotland before ye
+But me and my true love will never meet again
+On the bonnie, bonnie banks o' Loch Lomond.
+My Country Tis of Thee^E flat^major^7^3^2^http://docs.google.com/uc?export=open&id=1M0uzbL20JYBkZ8Fbwf8GA2sByzFS1QJC^http://docs.google.com/uc?export=open&id=1WXsqrYHrI-LEdIss3r5pjWnhZMsuSzPd^null^http://docs.google.com/uc?export=open&id=1EkoAQDeLkWEkqIoOjPYfw3Z-epBj_o6H^hymn^I,IV,V^7-6^null^AMH^null^null^My country, 'tis of thee,
+Sweet land of liberty,
+Of thee I sing.
+Land where my fathers died!
+Land of the Pilgrim's pride!
+From every mountain side,
+Let freedom ring!
+Shenandoah^D^major^8^3^2^http://docs.google.com/uc?export=open&id=1cw1rQlpS1TE4dMTnTL4_ucfC62VMV7FA^http://docs.google.com/uc?export=open&id=1LqKxCXXGIasv07OB-mUQSVkRj4TS1Z-r^null^http://docs.google.com/uc?export=open&id=1A8bDrAepaWZk0jSjQdA6RzV5af9ZZ3Zu^American folk^I,ii,IV,V,vi^1-1^null^AMH^I loved this song as a girl.^null^O Shenandoah, I long to hear you. 
+Away, you rolling river. 
+O Shenandoah, I long to hear you 
+Away, I'm bound away 
+'Cross the wide Missouri.
+Simple Gifts^G^major^8^3^2^http://docs.google.com/uc?export=open&id=1CnDpK97NTcgrTgMVi522qKPS9-tWvbTd^http://docs.google.com/uc?export=open&id=1iJH9b3oXoubfjoCMekh32JaZGRmaoNMT^null^http://docs.google.com/uc?export=open&id=1czEFpsg0EVg2-dY-JvR4YFwXwlyDHdvu^hymn^I,IV,V,vi^5-5^null^AMH^This is a Shaker melody.^null^Tis the gift to be simple, 'tis the gift to be free
+'Tis the gift to come down where we ought to be,
+And when we find ourselves in the place just right,
+'Twill be in the valley of love and delight.
+When true simplicity is gained,
+To bow and to bend we shan't be ashamed,
+To turn, turn will be our delight,
+Till by turning, turning we come 'round right.
+The Battle Cry of Freedom^F^major^11^3^2^http://docs.google.com/uc?export=open&id=1nn0LQAeyAg1-XHYdw0QoNc3j1G1gvEqc^http://docs.google.com/uc?export=open&id=1DYn96hIIS3Yxo5midtT4nJXWXWaeGJ56^null^http://docs.google.com/uc?export=open&id=1xWFRHnoXfZISfzeSnP38beyEURBuhqjO^American Civil War^I,IV,V,vi^3--6^null^AMH^This is a Civil War song.^null^Yes we’ll rally round the flag, boys, we’ll rally once again,
+Shouting the battle cry of freedom,
+We will rally from the hillside, we’ll gather from the plain,
+Shouting the battle cry of freedom!
+The Union forever!  Hurrah, boys, hurrah!
+Down with the traitor, up with the star;
+While we rally round the flag, boys, rally once again,
+Shouting the battle cry of freedom!
+The Lakes of Pontchartrain^A^major^10^3^1^http://docs.google.com/uc?export=open&id=16l7TnZ3-BBpSJb6tXZoM0pQEx7vWW6mo^http://docs.google.com/uc?export=open&id=1HrCmlr63O7jFNN5gNA9rd3Bp2XAYiP-_^null^http://docs.google.com/uc?export=open&id=1XGrIM4H73JzYUIQW63Eelzss7lvDZjhp^Irish^I,IV,V,vi^6--1^null^AMH^I learned this song from an Irish singer in San Francisco. My favorite recording is by Paul Brady.^null^It was on one bright March morning
+I bid New Orleans adieu.
+And I took the road to Jackson town,
+My fortune to renew,
+I cursed all foreign money,
+No credit could I gain,
+Which filled my heart with longing for
+The lakes of Pontchartrain.
+The Water is Wide^E^major^8^3^2^http://docs.google.com/uc?export=open&id=1oH6oBKQYVe-WbXmtgI8Aw__zylUYhF0s^http://docs.google.com/uc?export=open&id=10AHLVUrBsBlzR6ZgtXdt_WK3EzN2zCoo^null^http://docs.google.com/uc?export=open&id=1wkk4LMr6Wag3u3SXAfmMCv62ZMqm0YOZ^Scottish^I,IV,V,vi^5-5^null^AMH^I don't remember when or how I learned this song, but I've long enjoyed improvising on it.^null^The water is wide, I can't cross over
+And neither have I wings to fly.
+Give me a boat that can carry two
+And both shall row, my love and I
+Waltzing Matilda^D^major^11^3^2^http://docs.google.com/uc?export=open&id=15KhzmsopHoBikRNMSfXGdiY2GVNkRI66^http://docs.google.com/uc?export=open&id=1dn5axbjKuv_lprkfzsyLUNu5FVZ9o0T6^null^http://docs.google.com/uc?export=open&id=1i-8BKozm-jb_LdPcJ3VHBpiS8YnDZ9Wm^Australian^I,IV,V,vi^5--1^null^AMH^I learned this song in high school.^null^Once a jolly swagman camped by a billabong 
+Under the shade of a coolibah tree,  
+He sang as he watched and waited 'til his billy boiled 
+You'll come a-Waltzing Matilda, with me
+Waltzing Matilda, Waltzing Matilda 
+You'll come a-Waltzing Matilda, with me 
+He sang as he watched and waited 'til his billy boiled,
+ You'll come a-Waltzing Matilda, with me
+Amazing Grace^F^major^8^4^2^http://docs.google.com/uc?export=open&id=1UYNko3FLkDII48atHA2yRXevP5mTeJhz^http://docs.google.com/uc?export=open&id=1c27Z0ktdF2_SfPBQ3nNhyr6xUwXx9goq^null^http://docs.google.com/uc?export=open&id=1CSE5KfUPbv6nerPU6wa6OByJyYmcfEr5^hymn^I, V7/IV, IV, V/V, vi^5-5^null^AMH^This song has just always been there!^null^Amazing grace! how sweet the sound,
+That saved a wretch; like me!
+I once was lost, but now am found,
+Was blind, but now I see.
+Kookaburra^C^major^8^2^2^http://docs.google.com/uc?export=open&id=1vNAwoz692CcsH1UE_hehGBjCm80isR7W^http://docs.google.com/uc?export=open&id=1iz0xuaHhY98XzK87ZPSuy7o0jlDgGH3G^null^http://docs.google.com/uc?export=open&id=1zApS0lxUTKw96xK0wY2DIBmLrHIJ1Ccx^Australian^I, IV, V7^1-1^null^AMH^I remember learning this song from a friend on the playground in 1st grade.^null^Kookaburra sits in the old gum tree
+Merry, merry king of the bush is he
+Laugh, Kookaburra! Laugh, Kookaburra!
+Gay your life must be.
+Froggie Went A-Courting^E flat^major^9^4^1^http://docs.google.com/uc?export=open&id=1qKl95rWEZBUTDgEI-mZJKvZAlvY59_C3^http://docs.google.com/uc?export=open&id=1eLBjUhjexHzN2wid89FYIyYXLEdco2I6^null^http://docs.google.com/uc?export=open&id=193nNN6QTaT78qJPnMYvw9pJHfAemW_mp^American folk^I,ii,IV,V,V7/IV^5--6 w/ acc^Features some blue notes (i.e. semi-lowered 3).^AMH^This song was on an old record my brother and I used to dance to and sing along with in the basement.^null^Frog went a-courtin', and he did ride, uh-huh
+Frog went a-courtin', and he did ride, uh-huh
+Frog went a-courtin', and he did ride
+With a sword and a pistol by his side, uh-huh
+Mack the Knife^A^major^9^4^1^http://docs.google.com/uc?export=open&id=1fPgGU3YixrA6H_JRl_YIa9_qRLeklI1d^http://docs.google.com/uc?export=open&id=1DRn1_yP4QzkiNosv206lqkTPzHDJnmhi^null^http://docs.google.com/uc?export=open&id=12cyGWbFTgveu4lGA-JHAkCTx1fBdTTbB^standard^I,vii/ii,ii,V,iii7,ii7^1--2^Sung version is somewhat different from piano version.^AMH^I first became familiar with this one in high school when my friend Nick sang it.^null^Oh, the shark, babe, has such teeth, dear
+And it shows them pearly white
+Just a jackknife has old MacHeath, babe
+And he keeps it, ah, out of sight
+Ya know when that shark bites with his teeth, babe
+Scarlet billows start to spread
+Fancy gloves, oh, wears old MacHeath, babe
+So there's never, never a trace of red
+SInging in the Rain^E flat^major^8^4^1^http://docs.google.com/uc?export=open&id=1o1DfAR3EbAXpFBVmgGxuZUURIdbY2o3y^http://docs.google.com/uc?export=open&id=1ZSbgO4Boo0TWXd8GpoddOuTl-ykJgI-4^null^http://docs.google.com/uc?export=open&id=10BC25atgS-47QLHUqrsHh6Bg3K_RLEYl^American popular^I,ii,IV,V,vi,vii/ii^5-5^Sung version is somewhat different from piano version.^AMH^My mom showed me this musical when I was a child and I loved it!^null^I'm singing in the rain
+Just singing in the rain
+What a glorious feelin'
+I'm happy again
+I'm laughing at clouds
+So dark up above
+The sun's in my heart
+And I'm ready for love
+Let the stormy clouds chase
+Everyone from the place
+Come on with the rain
+I've a smile on my face
+I walk down the lane
+With a happy refrain
+Just singin',
+Singin' in the rain.
+Take Me Out to the Ball Game^B^major^9^4^1^http://docs.google.com/uc?export=open&id=1MGXXErr2CEj-CGYvU2nfExQi0l-MhtvN^http://docs.google.com/uc?export=open&id=1cvIzBq8vAeRAPS-rU3FFJ3nAK-6MnmTG^null^http://docs.google.com/uc?export=open&id=1VnWsdkABbQ3tClXqV6uF_MIQny0cBx0u^American popular^I,ii, V/ii, V,V7/IV,IV,vii/V^1--2^null^AMH^We used to sing this in my family in the car on the way to baseball games. They also play it at games sometimes over the loud speaker for everyone to sing along with.^null^Take me out to the ball game,
+Take me out with the crowd;
+Buy me some peanuts and Cracker Jack,
+I don't care if I never get back.
+Let me root, root, root for the home team,
+If they don't win, it's a shame.
+For it's one, two, three strikes, you're out,
+At the old ball game.
+You Are My Sunshine^E^major^9^4^1^http://docs.google.com/uc?export=open&id=1lLEqE5bZVIwQgp0UG2d2HRF8fbrYzzLU^http://docs.google.com/uc?export=open&id=1oPlu9U3DM7oQfg4MFI_lS8g2_Ipm38vM^null^^American folk^I,IV,V,V7/IV^5--6 w/ acc^null^AMH^This was my parents' "song." My mom used to sing me to sleep with this when I was small.^null^You are my sunshine, my only sunshine
+You make me happy when skies are gray
+You'll never know dear, how much I love you
+Please don't take my sunshine away
+Mama's Little Baby Loves Shortnin'^C^major/Blues^8^1^1^http://docs.google.com/uc?export=open&id=1LtYVZtQ98XpkW7kF4rGi4htyWWXaakK5^http://docs.google.com/uc?export=open&id=1RcxJ5scDUEMa6ADMsky2ns4wtCBie1Tp^null^http://docs.google.com/uc?export=open&id=1DrljJOr1OMPk0ZxetIA2enAiandym9Gj^American folk^I,V^1-1^null^AMH^My mom used to sing this to me when I was a child.^null^Put on the skillet,
+Slip on the lid,
+Mama's gonna make
+A little short'nin' bread.
+That ain't all
+She's gonna do,
+Mama's gonna make
+A little coffee, too.
+Mama's little baby loves
+Short'nin', short'nin',
+Mama's little baby loves
+Short'nin' bread,
+All the Pretty Little Horses^D^minor^10^4^1^http://docs.google.com/uc?export=open&id=1FTi7KcBQJgy9syQNXSVYu9hRROvrg10p^http://docs.google.com/uc?export=open&id=1UyyyIQEX46LGiCS_DM1Ibco51bi03GNR^null^http://docs.google.com/uc?export=open&id=1MO64prShyy3estneIBhDCT0YEy4VTftb^American folk^i,III,IV,V,VII^5--7^null^AMH^This one I learned as a young adult.^null^Hush-a-bye, don't you cry,
+Go to sleep my little baby.
+When you wake you shall have
+All the pretty little horses.
+Black and bays, dapples, grays,
+All the pretty little horses.
+Hush-a-bye, don't you cry,
+Go to sleep my little baby.
+Ghost of John^C#^minor^10^1^1^http://docs.google.com/uc?export=open&id=1ME7nKH8zoXeRjZGMRKgCv0SKbgFGeDP-^http://docs.google.com/uc?export=open&id=1OCy1BS2pxkT78Zkc9oKnJ3rcwBovVmVt^null^http://docs.google.com/uc?export=open&id=1566y-7BDYmtpxY7YsXtsyz5rJwyouksM^American folk^i,v^5--7^null^AMH^I learned this song in elementary school.^null^Have you seen the ghost of John? 
+Long white bones with the skin all gone 
+Ooh ooh ooh ooh 
+Wouldn’t it be chilly with no skin on?
+Shady Grove^A^minor^8^1^1^http://docs.google.com/uc?export=open&id=1ZhHp87eIUZLrVuXQqiP53COUX8IWyAUO^http://docs.google.com/uc?export=open&id=1CszSHGMB1LNW7bdngizRsMw52GU_xh1U^null^http://docs.google.com/uc?export=open&id=1DyDeYRCOITFzEVqxHCI3ptxIr7lx64dR^Appalachian^I,VII^7-7^null^AMH^I learned this recently and I really like it.^null^Shady Grove, my little love, Shady Grove, I know,
+Shady Grove, my little love, bound for Shady Grove.
+Lips as red as the bloomin’ rose, eyes of the deepest brown,
+You are the darlin’ of my heart stay ’till the sun goes down.
+Shady Grove, my little love, Shady Grove, I know,
+Shady Grove, my little love, bound for Shady Grove.
+Black is the Color^B^minor^8^3^1^http://docs.google.com/uc?export=open&id=1dp3xjdT2csanNRiPw8EjXTEd4N1rj0jc^http://docs.google.com/uc?export=open&id=1zcF7SWYQnaLxyKbwqkYU5vfmvS0J_1VX^null^http://docs.google.com/uc?export=open&id=1Wr0l_ZBNgGb0wRCCjfIbtEeIKO1LVg-R^English^i,v,VI,VII^1-1^Doesn't start on i^AMH^I loved singing this song as a teenager. I don't remember who I learned it from.^null^Black is the colour of my true love’s hair.
+Her lips are like some roses fair
+She has the sweetest smile and the gentlest hands
+And I love the ground whereon she stands.
+I love my love and well she knows
+I love the ground whereon she goes
+I wish the day it soon would come
+When she and I could be as one
+Letting Go^D^minor^11^3^3^Letting Go^Letting Go^Letting Go^Letting Go^original^i,III,IV,v,VI^7--3^null^AMH^This is a song about a spider growing up. It reflects an uncertainty about the future I think a lot of us have felt.^null^Nestling under the window I try to imagine
+Wandering far from the only home I’ve known.
+How will I fare in the rain and snow? How will I know when it’s time to let go,
+Letting the warm wind take me where it blows?
+Now every night as the moon’s getting brighter it whispers,
+Come, little one, it won’t be much longer now.
+Soon we will rise to the heavens as one, Silvery threads in the light of the sun,
+Knowing when to hold on and when to just let go.
+Poor Wayfaring Stranger^C^minor^9^4^1^http://docs.google.com/uc?export=open&id=16_9ivSM2YN_-5oYwm74pFqcVEI2LcLvK^http://docs.google.com/uc?export=open&id=1axdCtiNyhc61AzShO4MjeGLQOah20Vqj^null^http://docs.google.com/uc?export=open&id=1C_glyby4hO9pAZ5U5osJ5yoyj7hxoRO2^American folk hymn^i,VII,VI,III,V^7--1^The vii chord features a natural 7 while the V chord includes a raised 7.^AMH^I learned this song as a young adult.^null^I am a poor wayfaring stranger
+Traveling through this world alone
+There is no sickness, toil nor danger
+In that fair land to which I go
+I'm goin' home to see my mother
+I'm goin' home, no more to roam
+I am just goin' over Jordan
+I am just goin' over home
+The Ants Go Marching^E^minor^8^3^1^http://docs.google.com/uc?export=open&id=1vzNIt_-cbhBiHg5qsGMPqDwnEKpovoCp^http://docs.google.com/uc?export=open&id=1Q6Qs4SmkbyLsMZa8Go68Ngmz1GAGEuZw^null^http://docs.google.com/uc?export=open&id=1cM5dm0YHc3cLoqr3kivvdlT8ZYwc6TPV^Irish^i,VII,VI,v^5-5^null^AMH^This is a song from my childhood.^null^The ants go marching one by one
+Hurrah, hurrah
+The ants go marching one by one
+Hurrah, hurrah
+The ants go marching one by one
+The little one stops to suck his thumb
+And they all go marching down to the ground to get out of the rain
+Boom boom boom
+Persephone^B^minor^10^2^1^http://docs.google.com/uc?export=open&id=1atql5caWz0mZ0_wQp2BqHlm3a2uRF8qP^http://docs.google.com/uc?export=open&id=1JkKgz0XPevg6_A-QPvkwWavKu92mSxTV^http://docs.google.com/uc?export=open&id=1wGjMYfvkIqhJrMes-g5dMsB-SRWL9GkW^http://docs.google.com/uc?export=open&id=1-anmms8ZecEMBH3GzZevh0kI3HWDazYC^words and music by Anne-Marie Hildebrandt^i,VII,v,VI^1-3^null^AMH^My grandmother used to tell me this story. I do know it was before I knew what pomegranates were; I was mystified!^null^Living in the underworld,
+Forbidden of my ocean pearls,
+Though I wield a scepter and a sword,
+It’s still prison to me, my lord.
+Who will offer to intercede and plead the return of Persephone?
+Where once I meandered among the trees, Now no one can save them but me.
+An the juices of the pomegranate pressed on me By Hades of the underneath
+Will run like scarlet down my chin. Although I rise each spring, I know I can never win.
+Resistance^C^minor^11^3^3^null^http://docs.google.com/uc?export=open&id=1O3Ab9jolTIspcAYMHzCScv6RmUu6aUTW^http://docs.google.com/uc?export=open&id=17EVvmCZXnI3fX2_FFY9jy37IEEJrEaVp^http://docs.google.com/uc?export=open&id=1NxmlRQQu2A_oj3BBxp6nTrtU-AnoPcA7^words and music by Anne-Marie Hildebrandt^i,VII,VI,v,IV^7-3^null^AMH^We had a dog who would run away or flatten himself against the ground whenever it was time to go to the vet. Somehow he knew.^null^I can see you behind your mask. I can smell it in the air
+Though you try to beguile me with your scent and your smile so fair.
+You can offer me bits of gold,
+Rich ambrosia could be mine.
+There are some things that can’t be bought
+With your treasures and morsels divine.
+I can be anything I want, like mist on a mountainside.
+Or a boulder that’s buried deep, determined to shelter my pride.
+Give me everything you’ve got, I will twist and I will run.
+This is one thing you will not have, 
+For I promise this time I will not be overcome.
+In the Pines^B flat^Dorian/blues^5^2^1^null^null^null^null^American folk^i,IV,v^1-5^null^null^null^null^null

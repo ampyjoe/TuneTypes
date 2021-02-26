@@ -220,9 +220,23 @@ var theAudioElements = document.getElementsByTagName('AUDIO');
         console.log('Playback started on : '+ e.target.parentElement.innerText);
         if (previousTune != null && previousTune != e.target) previousTune.pause();
             previousTune = e.target;
-            //alert(e.target.id); // TODO. This is being called twice??
-            //document.getElementsByTagName('DIV')[0] = e.target.id;
-            document.getElementById("details").innerText = e.target.id.replace(/#/g,"\n");  // innerText vs innerHTML, dealing w quotes
+            currText = e.target.id;
+
+//alert (currText);
+
+            //currText = currText.replace(/\?/g,"'");
+            currText = currText.replace(/#/g,"<BR>");
+
+            document.getElementById("details").innerHTML = currText;
+
+            //e.target.id.replace(/#/g,"<BR>")  // innerText vs innerHTML, dealing end of line
+                                                            //.replace(//'/g,"*");      // .replace(/\'/g,"&#39;") TODO prob should use this one too
+                                                            //.replace(//’/g,"^");
+                                                            //.replace(//?/g,"&");
+
+
+            //;
+            //document.getElementById("details").innerText = e.target.id.replace(/'/g,"&#39;");  // innerText vs innerHTML, dealing w quotes
         }, false);
     }
 
@@ -242,7 +256,7 @@ function play(theElement) {
     
 function submitPage() {
     
-    debugger; 
+    //debugger;
     
     
     // Important!! TODO check for the correct types of input rather than just dropping the last one

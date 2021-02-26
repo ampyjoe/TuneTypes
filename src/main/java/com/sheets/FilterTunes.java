@@ -42,7 +42,7 @@ public class FilterTunes {
     public static void main(String[] args) {
         
         // Some HTML code for creating URLs
-        String audioTagPrefix = "<audio id = 'tune' controls><source src=\"";
+        String audioTagPrefix = "<audio id = \"tune\" controls><source src=\"";
         String googlePrefix = "http://docs.google.com/uc?export=open&id=";
         String closeTag = "\"/></audio>\n";
 
@@ -99,7 +99,7 @@ public class FilterTunes {
                         + "'> "
                         + o.get(headings.indexOf("Name"))
                         + audioTagPrefix.replace("tune", o.get(17)) + o.get(6 + finalPt) + closeTag // TODO Fix this hack...Hard-coding 17 as lyrics
-               + "</div><br>"))
+               + "</div><br>").replace("’", "'"))           // TODO little bit of a hack for replacing smart quotes - maybe fix in CreateTuneFile?
 
                                                                             // TODO Sort the output?
                 .collect(joining());
