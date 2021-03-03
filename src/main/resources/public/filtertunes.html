@@ -136,10 +136,10 @@
     
 <!--    <DIV id = "container"></DIV>  <DIV id = "details"></DIV>   &lt;!&ndash;To be used to list songs TODO add scrollwheels?&ndash;&gt;-->
 
-    <div class="float-container">
+    <div class="float-container" >
 
         <div class="float-child">
-            <div id="container" class="green">Song list</div>
+            <div id="container" class="green" >Song list</div>
         </div>
 
         <div class="float-child">
@@ -155,10 +155,15 @@
 
 
 .float-child {
-width: 30%;
+overflow: auto;
+height: 400px;
+#width: 30%;
 float: left;
 padding: 20px;
 border: 2px solid blue;
+}
+.green {
+#overflow: scroll;
 }
 </style>
 
