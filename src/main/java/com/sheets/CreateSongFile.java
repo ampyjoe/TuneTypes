@@ -82,56 +82,63 @@ public class CreateSongFile {
     
     
     public static void main(String[] args) throws IOException, GeneralSecurityException {
-        
-        sheetsService = getSheetsService();        
-        Sheets.Spreadsheets.Get request = sheetsService.spreadsheets().get(TUNES_SPREADSHEET_ID);   // Get actual spreadsheet no range included
-        request.setIncludeGridData(true);
-        Spreadsheet spreadsheet = request.execute();            // Use for links
-        Sheet currSheet = spreadsheet.getSheets().get(7);       // Get the first spreadsheet
-        GridData theData = currSheet.getData().get(0);          // setStartXXX seems to have no effect    First page ?
-
-        List<Object> headings = getHeadings();
-
-        //System.exit(0);
-
-
-
         // Some HTML code for creating URLs
         String audioTagPrefix = "<audio controls><source src=\"";
         String googlePrefix = "http://docs.google.com/uc?export=open&id=";
         String closeTag = "\"/></audio><br>\n";
-        // Create a Stream where each tune is a List<CellData>
-        
-        
-//                     // get the initial comments
-//        Path file = new File("tunesData.txt".toPath();
-//             Stream<String> comments = Files.lines(file)
-//                     .takeWhile(f -> f.startsWith("#"))
-//                     .collect(toList())
-//                     .stream();
-//
 
 
-            int numColumnsToGrab = 18;  // 10 for just the search items, 18 for all attributes TODO 18 problematic due to it adding lines and therefore new item in Stream
-             //List<Object> headings = getHeadings();
-//             
-             PrintWriter pw = new PrintWriter("src/main/resources/public/songsdata.txt");
-             
-             pw.println(headings.stream().limit(numColumnsToGrab).map(m -> (String)m).collect(joining("^")));
-//
-        
-        //List<List<String>> tuneDataList =
 
+
+        sheetsService = getSheetsService();        
+        Sheets.Spreadsheets.Get request = sheetsService.spreadsheets().get(TUNES_SPREADSHEET_ID);   // Get actual spreadsheet no range included
+        request.setIncludeGridData(true);
+        Spreadsheet spreadsheet = request.execute();            // Use this approach if needing more details for each cell or to iterate through all sheets
+
+
+        //List<Object> headings = getHeadings();
+
+        spreadsheet.getSheets().stream()
+                .skip(1)
+                .forEach(s -> getSongs(s, 250, 5,"wot"));   // Prob not a great way to do - side-effect issues (Collector here?)
+
+
+            int numColumnsToGrab = 5;  // columns across for each person
+
+             //PrintWriter pw = new PrintWriter("src/main/resources/public/songsdata.txt");
+            //pw.close();
+             //pw.println(headings.stream().limit(numColumnsToGrab).map(m -> (String)m).collect(joining("^")));
+
+        
+            //getSongs(spreadsheet, 7, 250, numColumnsToGrab,"wotever");
+
+
+    
+    }
+
+
+
+
+
+    static String getSongs(Sheet currSheet, int rowsToGrab, int numColumnsToGrab, String prefix) {
+
+        GridData theData = currSheet.getData().get(0);          // setStartXXX seems to have no effect, using skip instead
         // TODO - make this a method passing in skip and limit (plus details for recorded versions?)
+
+        if (theData.getRowData() == null) return " -- Empty Sheet -- ";    // Hack to ignore sheets w null row data
+
+        System.out.println("-------*** " + currSheet.getProperties().getTitle() + " ***---------");
+
         theData.getRowData().stream()
-            .skip(5)
-                .limit(35)
+                .skip(2)
+                .limit(rowsToGrab)
                 .map( (RowData r) -> {
+                    if (r.getValues() == null) return "*";      // Hack for empty content in a sheet
                     return r.getValues().stream().skip(1).limit(numColumnsToGrab)   // First column empty on most it seems
                             .map((CellData c) -> {
                                 if (c.getHyperlink() != null) { // Prob not needed as checking for hyperlink
                                     if (c.getHyperlink().contains("view") && c.getHyperlink().contains("file/d/"))
-                                        return googlePrefix + c.getHyperlink().split("file/d/")[1].split("/view")[0];
+                                        return prefix + c.getHyperlink().split("file/d/")[1].split("/view")[0];
                                     else return "";
                                 }
                                 // Replace newlines with # where value not null. TODO File.lines splits on \n, \r, or \n\r hence need to subst "#" as \n in data file
@@ -140,12 +147,14 @@ public class CreateSongFile {
                             //.collect(toList());
                             .collect(joining("^"));
                 })
-                .forEach(l -> pw.println(l));
-            pw.close();
+                .forEach(System.out::println);
+        //.forEach(l -> pw.println(l));
 
-    
+
+
+
+        return "hello";
     }
-
 
     // Temporary - maybe should just be a settings class?
     static List<Object> getHeadings() throws IOException, GeneralSecurityException{
